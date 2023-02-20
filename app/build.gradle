@@ -1,0 +1,126 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+   // id 'com.google.secrets_gradle_plugin' version '0.4'
+}
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+android {
+    namespace 'com.koshkin.recipes'
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.koshkin.recipes"
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        buildTypes {
+            debug{
+                buildConfigField 'String', "ApiKey", localProperties['API_KEY']
+                buildConfigField 'String', 'TASTY_APIS_ENDPOINT', '"https://tasty.p.rapidapi.com/"'
+            }
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                buildConfigField 'String', "ApiKey", localProperties['API_KEY']
+                buildConfigField 'String', 'TASTY_APIS_ENDPOINT', '"https://tasty.p.rapidapi.com/"'
+            }
+        }
+
+    }
+//    productFlavors {
+//        staging {
+//            applicationIdSuffix ".staging"
+//            buildConfigField 'String', 'GOOGLE_APIS_ENDPOINT', '"https://www.googleapis.com/"'
+//        }
+//
+//        prod {
+//            buildConfigField 'String', 'GOOGLE_APIS_ENDPOINT', '"https://www.googleapis.com/"'
+//        }
+//    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.core:core-ktx:$androidx_core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "com.google.android.material:material:$material_version"
+
+    // Navigation components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Glide for image caching
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+    // Logging
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
+    // View model
+    implementation "androidx.fragment:fragment-ktx:$fragmentKtx_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelKtx_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelKtx_version"
+
+    testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "androidx.test.ext:junit:$androidx_test_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+
+    // from data
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Room for data persistence
+    api "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    //   implementation "androidx.room:room-coroutines:$room_version"
+
+    // optional - Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:$room_version"
+
+    // optional - Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+    // Networking
+    implementation "com.squareup.okhttp3:okhttp-bom:$okhttp_version"
+    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
+
+    // Moshi for json serialization / deserialization
+//    implementation "com.squareup.retrofit2:converter-moshi:$retrofit_moshi_converter_version"
+//    implementation "com.squareup.moshi:moshi-kotlin:$moshi_version"
+//    implementation "com.squareup.moshi:moshi-adapters:$moshi_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutines_adapter_version"
+
+
+
+//    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+//    implementation 'com.google.android.material:material:1.8.0'
+//    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+//    testImplementation 'junit:junit:4.13.2'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
