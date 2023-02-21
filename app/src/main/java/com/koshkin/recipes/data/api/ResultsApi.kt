@@ -1,9 +1,9 @@
-package com.koshkin.recipes.data.entities
+package com.koshkin.recipes.data.api
 
 import com.google.gson.annotations.SerializedName
 
-data class Results (
-    @SerializedName("renditions"               ) var renditions            : ArrayList<Renditions>   = arrayListOf(),
+data class ResultsApi (
+    @SerializedName("renditions"               ) var renditions            : ArrayList<RenditionsApi>   = arrayListOf(),
     @SerializedName("canonical_id"             ) var canonicalId           : String?                 = null,
     @SerializedName("seo_path"                 ) var seoPath               : String?                 = null,
     @SerializedName("brand"                    ) var brand                 : String?                 = null,
@@ -11,29 +11,29 @@ data class Results (
     @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
     @SerializedName("thumbnail_alt_text"       ) var thumbnailAltText      : String?                 = null,
     @SerializedName("servings_noun_plural"     ) var servingsNounPlural    : String?                 = null,
-    @SerializedName("nutrition"                ) var nutrition             : Nutrition?              = Nutrition(),
+    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),
     @SerializedName("approved_at"              ) var approvedAt            : Int?                    = null,
-    @SerializedName("topics"                   ) var topics                : ArrayList<Topics>       = arrayListOf(),
-    @SerializedName("total_time_tier"          ) var totalTimeTier         : TotalTimeTier?          = TotalTimeTier(),
+    @SerializedName("topics"                   ) var topics                : ArrayList<TopicsApi>       = arrayListOf(),
+    @SerializedName("total_time_tier"          ) var totalTimeTier         : TotalTimeTierApi?          = TotalTimeTierApi(),
     @SerializedName("yields"                   ) var yields                : String?                 = null,
     @SerializedName("original_video_url"       ) var originalVideoUrl      : String?                 = null,
     @SerializedName("cook_time_minutes"        ) var cookTimeMinutes       : Int?                    = null,
     @SerializedName("nutrition_visibility"     ) var nutritionVisibility   : String?                 = null,
     @SerializedName("id"                       ) var id                    : Int?                    = null,
     @SerializedName("slug"                     ) var slug                  : String?                 = null,
-    @SerializedName("sections"                 ) var sections              : ArrayList<Sections>     = arrayListOf(),
+    @SerializedName("sections"                 ) var sections              : ArrayList<SectionsApi>     = arrayListOf(),
     @SerializedName("tips_and_ratings_enabled" ) var tipsAndRatingsEnabled : Boolean?                = null,
     @SerializedName("beauty_url"               ) var beautyUrl             : String?                 = null,
     @SerializedName("updated_at"               ) var updatedAt             : Int?                    = null,
     @SerializedName("country"                  ) var country               : String?                 = null,
-    @SerializedName("instructions"             ) var instructions          : ArrayList<Instructions> = arrayListOf(),
+    @SerializedName("instructions"             ) var instructions          : ArrayList<InstructionsApi> = arrayListOf(),
     @SerializedName("keywords"                 ) var keywords              : String?                 = null,
     @SerializedName("facebook_posts"           ) var facebookPosts         : ArrayList<String>       = arrayListOf(),
     @SerializedName("brand_id"                 ) var brandId               : String?                 = null,
     @SerializedName("created_at"               ) var createdAt             : Int?                    = null,
-    @SerializedName("price"                    ) var price                 : Price?                  = Price(),
+    @SerializedName("price"                    ) var price                 : PriceApi?                  = PriceApi(),
     @SerializedName("show_id"                  ) var showId                : Int?                    = null,
-    @SerializedName("show"                     ) var show                  : Show?                   = Show(),
+    @SerializedName("show"                     ) var show                  : ShowApi?                   = ShowApi(),
     @SerializedName("description"              ) var description           : String?                 = null,
     @SerializedName("draft_status"             ) var draftStatus           : String?                 = null,
     @SerializedName("video_id"                 ) var videoId               : Int?                    = null,
@@ -50,22 +50,22 @@ data class Results (
     @SerializedName("is_shoppable"             ) var isShoppable           : Boolean?                = null,
     @SerializedName("promotion"                ) var promotion             : String?                 = null,
     @SerializedName("language"                 ) var language              : String?                 = null,
-    @SerializedName("user_ratings"             ) var userRatings           : UserRatings?            = UserRatings(),
-    @SerializedName("tags"                     ) var tags                  : ArrayList<Tags>         = arrayListOf(),
+    @SerializedName("user_ratings"             ) var userRatings           : UserRatingsApi?            = UserRatingsApi(),
+    @SerializedName("tags"                     ) var tags                  : ArrayList<TagsApi>         = arrayListOf(),
     @SerializedName("name"                     ) var name                  : String?                 = null,
     @SerializedName("thumbnail_url"            ) var thumbnailUrl          : String?                 = null,
-    @SerializedName("credits"                  ) var credits               : ArrayList<Credits>      = arrayListOf()
+    @SerializedName("credits"                  ) var credits               : ArrayList<CreditsApi>      = arrayListOf()
 
 )
 
-data class Credits (
+data class CreditsApi (
 
     @SerializedName("name" ) var name : String? = null,
     @SerializedName("type" ) var type : String? = null
 
 )
 
-data class Tags (
+data class TagsApi (
 
     @SerializedName("name"         ) var name        : String? = null,
     @SerializedName("id"           ) var id          : Int?    = null,
@@ -74,7 +74,7 @@ data class Tags (
 
 )
 
-data class UserRatings (
+data class UserRatingsApi (
 
     @SerializedName("count_positive" ) var countPositive : Int? = null,
     @SerializedName("score"          ) var score         : Int? = null,
@@ -82,14 +82,14 @@ data class UserRatings (
 
 )
 
-data class Show (
+data class ShowApi (
 
     @SerializedName("name" ) var name : String? = null,
     @SerializedName("id"   ) var id   : Int?    = null
 
 )
 
-data class Price (
+data class PriceApi (
 
     @SerializedName("updated_at"          ) var updatedAt          : String? = null,
     @SerializedName("portion"             ) var portion            : Int?    = null,
@@ -99,7 +99,7 @@ data class Price (
 
 )
 
-data class Instructions (
+data class InstructionsApi (
 
     @SerializedName("start_time"   ) var startTime   : Int?    = null,
     @SerializedName("appliance"    ) var appliance   : String? = null,
@@ -111,26 +111,26 @@ data class Instructions (
 
 )
 
-data class Sections (
+data class SectionsApi (
 
     @SerializedName("position"   ) var position   : Int?                  = null,
-    @SerializedName("components" ) var components : ArrayList<Components> = arrayListOf(),
+    @SerializedName("components" ) var components : ArrayList<ComponentsApi> = arrayListOf(),
     @SerializedName("name"       ) var name       : String?               = null
 
 )
 
-data class Components (
+data class ComponentsApi (
 
     @SerializedName("position"      ) var position     : Int?                    = null,
-    @SerializedName("measurements"  ) var measurements : ArrayList<Measurements> = arrayListOf(),
+    @SerializedName("measurements"  ) var measurements : ArrayList<MeasurementsApi> = arrayListOf(),
     @SerializedName("raw_text"      ) var rawText      : String?                 = null,
     @SerializedName("extra_comment" ) var extraComment : String?                 = null,
-    @SerializedName("ingredient"    ) var ingredient   : Ingredient?             = Ingredient(),
+    @SerializedName("ingredient"    ) var ingredient   : IngredientApi?             = IngredientApi(),
     @SerializedName("id"            ) var id           : Int?                    = null
 
 )
 
-data class Unit (
+data class UnitApi(
 
     @SerializedName("display_plural"   ) var displayPlural   : String? = null,
     @SerializedName("display_singular" ) var displaySingular : String? = null,
@@ -140,7 +140,7 @@ data class Unit (
 
 )
 
-data class Ingredient (
+data class IngredientApi (
 
     @SerializedName("updated_at"       ) var updatedAt       : Int?    = null,
     @SerializedName("name"             ) var name            : String? = null,
@@ -151,29 +151,29 @@ data class Ingredient (
 
 )
 
-data class Measurements (
+data class MeasurementsApi (
 
-    @SerializedName("unit"     ) var unit     : Unit?   = Unit(),
+    @SerializedName("unit"     ) var unit     : UnitApi?   = UnitApi(),
     @SerializedName("quantity" ) var quantity : String? = null,
     @SerializedName("id"       ) var id       : Int?    = null
 
 )
 
-data class TotalTimeTier (
+data class TotalTimeTierApi (
 
     @SerializedName("tier"         ) var tier        : String? = null,
     @SerializedName("display_tier" ) var displayTier : String? = null
 
 )
 
-data class Topics (
+data class TopicsApi (
 
     @SerializedName("name" ) var name : String? = null,
     @SerializedName("slug" ) var slug : String? = null
 
 )
 
-data class Nutrition (
+data class NutritionApi (
 
     @SerializedName("sugar"         ) var sugar         : Int?    = null,
     @SerializedName("carbohydrates" ) var carbohydrates : Int?    = null,
@@ -185,7 +185,7 @@ data class Nutrition (
 
 )
 
-data class Renditions(
+data class RenditionsApi(
     @SerializedName("file_size"        ) var fileSize       : Int?    = null,
     @SerializedName("duration"         ) var duration       : Int?    = null,
     @SerializedName("bit_rate"         ) var bitRate        : Int?    = null,

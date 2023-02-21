@@ -1,9 +1,9 @@
 package com.koshkin.recipes.data.api
 
 import com.koshkin.recipes.BuildConfig
-import com.koshkin.recipes.data.entities.Results
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RecipesAPI {
@@ -14,5 +14,5 @@ interface RecipesAPI {
     suspend fun getListRecipes(@Query("tags") tag:String?,@Query("q") ingredient:String?): Response<RecipesApiResponse>
 
     @GET("recipes/get-more-info?apiKey/{id}")
-    suspend fun getRecipeInfo():Response<Results>
+    suspend fun getRecipeInfo(@Query("id") recipeID:Int):Response<ResultsApi>
 }
