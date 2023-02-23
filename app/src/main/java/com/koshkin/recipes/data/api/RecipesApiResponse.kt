@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class RecipesApiResponse (
     @SerializedName("count"   ) var count   : Int?               = null,
-    @SerializedName("results" ) var results : List<ResultsApi> = arrayListOf()
+    @SerializedName("results" ) var results : ArrayList<ResultsApi> = arrayListOf()
 
 )
