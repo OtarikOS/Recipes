@@ -1,5 +1,6 @@
 package com.koshkin.recipes.data.repositories
 
+import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.Results
 
 
