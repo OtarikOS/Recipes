@@ -11,7 +11,7 @@ class RecipesRemoteDataSourceImp(
     private val service: RecipesAPI,
     private val mapper: RecipesApiResponseMapper
 ): RecipesRemoteDataSource {
-    override suspend fun getRecipes(tag: String?, ingredient: String): Result<List<Results>> =
+    override suspend fun getRecipes(tag: String?, ingredient: String?): Result<List<Results>> =
         withContext(Dispatchers.IO){
             try {
                 val response = service.getListRecipes(tag, ingredient)

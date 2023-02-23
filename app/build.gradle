@@ -11,6 +11,10 @@ android {
     namespace 'com.koshkin.recipes'
     compileSdk 33
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.koshkin.recipes"
         minSdk 23
