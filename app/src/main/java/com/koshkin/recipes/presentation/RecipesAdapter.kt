@@ -1,6 +1,7 @@
 package com.koshkin.recipes.presentation
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,13 +35,14 @@ class RecipesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        Log.i("R_ADAP",position.toString())
         recipes[position].also { recipe ->
             recipe.thumbnailUrl.let { imageUrl ->
                 Glide.with(context)
                     .load(imageUrl)
                     .into(holder.ivRecipeCover)
-                holder.tvRecipeID.text = ""
-                holder.tvRecipeName.text= ""
+                holder.tvRecipeID.text = recipe.id.toString()
+                holder.tvRecipeName.text= recipe.name
             } ?: kotlin.run {
                 Glide.with(context)
                     .load(R.drawable.ic_launcher_background)

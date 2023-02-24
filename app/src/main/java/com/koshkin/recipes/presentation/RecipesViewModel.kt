@@ -38,6 +38,7 @@ class RecipesViewModel(
                     _remoteRecipes.clear()
                     _remoteRecipes.addAll(recipesResult.data)
 
+                    recipes.value =_remoteRecipes     //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
                 }
 
@@ -57,6 +58,7 @@ class RecipesViewModel(
                     _remoteRecipes.clear()
                     _remoteRecipeInfo= recipesResult.data
 
+                    recipes.value = _remoteRecipes            //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
                 }
 
