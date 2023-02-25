@@ -17,7 +17,10 @@ import com.koshkin.recipes.databinding.FragmentRecipesBinding
 class RecipesFragment : Fragment() {
     private lateinit var recipesAdapter: RecipesAdapter
 
-    private  var statePosition: Int = 20
+    private  var statePosition: Int = 0
+    private var sizeRequest: Int = 30
+
+    private var allowRequest: Boolean = true
 
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
@@ -37,14 +40,17 @@ class RecipesFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
-            override fun addRecipes(from :Int,tag: String?,ingredient: String?) {
-                recipesViewModel.getRecipes(from+statePosition,tag, ingredient)
-                statePosition +=20
+            override fun addRecipes(from :Int,size: Int,tag: String?,ingredient: String?) {
+          //      if(allowRequest) {    проверка нужна??? как и в recipeviewmodel                TODO проверить
+                //    allowRequest =
+                        recipesViewModel.getRecipes(from + statePosition,size, tag, ingredient)
+                    statePosition += 20
+            //    }
             }
 
         })
 
-        recipesViewModel.getRecipes(0,null,null)
+        recipesViewModel.getRecipes(statePosition,sizeRequest,null,null)
     }
 
     override fun onCreateView(
@@ -67,8 +73,8 @@ class RecipesFragment : Fragment() {
 
         recipesViewModel.dataLoading.observe(viewLifecycleOwner, { loading ->
             when (loading) {
-                true -> LayoutUtils.crossFade( binding.pbLoading, binding.rvRecipe)
-                false -> LayoutUtils.crossFade(binding.rvRecipe, binding.pbLoading)
+                true -> {binding.pbLoading.visibility = View.VISIBLE}
+                false -> {binding.pbLoading.visibility = View.GONE}
             }
         })
 

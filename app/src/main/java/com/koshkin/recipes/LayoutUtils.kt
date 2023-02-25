@@ -19,7 +19,7 @@ class  LayoutUtils {
                     .setDuration(duration.toLong())
                     .setListener(object : AnimatorListenerAdapter() {
                         override fun onAnimationEnd(animation: Animator) {
-                            viewToHide.visibility = View.GONE
+                            viewToHide?.visibility = View.GONE
                         }
                     })
             }

@@ -20,8 +20,10 @@ class RecipesViewModel(
     private val _dataLoading = MutableLiveData(true)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+    private val _allowRequest = MutableLiveData(true)
+    val allowRequest: LiveData<Boolean> = _allowRequest
 
+    private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     val recipes = _recipes
 
     private val _error = MutableLiveData<String>()
@@ -31,16 +33,19 @@ class RecipesViewModel(
 
     private var _remoteRecipeInfo:Results? =null
 
-    fun getRecipes(from: Int,tag: String?, ingredient: String?){
+    fun getRecipes(from: Int,size: Int,tag: String?, ingredient: String?){
         viewModelScope.launch {
             _dataLoading.postValue(true)
-            when(val recipesResult = getRemoteRecipes.invoke(from,tag,ingredient)){
+            when(val recipesResult = getRemoteRecipes.invoke(from,size,tag,ingredient)){
                 is Result.Success ->{
                 //    _remoteRecipes.clear()
                     _remoteRecipes.addAll(recipesResult.data)
 
                     recipes.value =_remoteRecipes     //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
+
+                    if(_remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
+                        _allowRequest.postValue(false)
                 }
 
                 is Result.Error ->{
@@ -49,6 +54,7 @@ class RecipesViewModel(
                 }
             }
         }
+     //   return allowRequest
     }
 
     fun getInfoRecipe(recipeID: Int){

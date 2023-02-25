@@ -6,8 +6,8 @@ import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.repositories.RecipesRepository
 
 class RecipesRepositoryImpl(private val remoteDataSource: RecipesRemoteDataSource):RecipesRepository {
-    override suspend fun getRemoteRecipes(from: Int,tag: String?, ingredient: String?): Result<List<Results>> {
-        return remoteDataSource.getRecipes(from, tag, ingredient)
+    override suspend fun getRemoteRecipes(from: Int,size: Int,tag: String?, ingredient: String?): Result<List<Results>> {
+        return remoteDataSource.getRecipes(from, size, tag, ingredient)
     }
 
     override suspend fun getRemoteRecipeInfo(recipeID: Int): Result<Results> {

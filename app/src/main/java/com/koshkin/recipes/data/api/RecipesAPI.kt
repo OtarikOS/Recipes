@@ -9,8 +9,9 @@ interface RecipesAPI {
     val apiKey: String
         get() = BuildConfig.ApiKey
 
-    @GET("recipes/list?${BuildConfig.ApiKey}&size=20&")
+    @GET("recipes/list?${BuildConfig.ApiKey}&tag=chinese&q=banana")
     suspend fun getListRecipes(@Query("from") from: Int,
+                               @Query("size") size: Int,
                                @Query("tags") tag:String?,
                                @Query("q") ingredient:String?): Response<RecipesApiResponse>
 
