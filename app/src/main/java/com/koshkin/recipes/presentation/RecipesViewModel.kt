@@ -21,6 +21,7 @@ class RecipesViewModel(
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+
     val recipes = _recipes
 
     private val _error = MutableLiveData<String>()
@@ -30,12 +31,12 @@ class RecipesViewModel(
 
     private var _remoteRecipeInfo:Results? =null
 
-    fun getRecipes(tag: String?, ingredient: String?){
+    fun getRecipes(from: Int,tag: String?, ingredient: String?){
         viewModelScope.launch {
             _dataLoading.postValue(true)
-            when(val recipesResult = getRemoteRecipes.invoke(tag,ingredient)){
+            when(val recipesResult = getRemoteRecipes.invoke(from,tag,ingredient)){
                 is Result.Success ->{
-                    _remoteRecipes.clear()
+                //    _remoteRecipes.clear()
                     _remoteRecipes.addAll(recipesResult.data)
 
                     recipes.value =_remoteRecipes     //TODO сделать через мапер энтити презентейшн

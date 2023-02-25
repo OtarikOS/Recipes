@@ -19,6 +19,7 @@ class RecipesAdapter(
 ): RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
 
     private val recipes: ArrayList<Results> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
+    private val recipes1: ArrayList<Results> = arrayListOf()
 
     override fun getItemCount(): Int {
         return recipes.size
@@ -36,6 +37,9 @@ class RecipesAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Log.i("R_ADAP",position.toString())
+     //   recipes.addAll(recipes)
+        if (position ==recipes.size-10)
+            listener.addRecipes(0,null,null)
         recipes[position].also { recipe ->
             recipe.thumbnailUrl.let { imageUrl ->
                 Glide.with(context)
@@ -93,6 +97,8 @@ class RecipesAdapter(
 
     interface ActionClickListener {
         fun moreInfo(recipeID: Int)
+
+        fun addRecipes(from :Int,tag: String?,ingredient: String?)
     }
 
 }

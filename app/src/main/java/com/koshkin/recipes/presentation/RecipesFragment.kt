@@ -17,6 +17,8 @@ import com.koshkin.recipes.databinding.FragmentRecipesBinding
 class RecipesFragment : Fragment() {
     private lateinit var recipesAdapter: RecipesAdapter
 
+    private  var statePosition: Int = 20
+
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
 
@@ -35,9 +37,14 @@ class RecipesFragment : Fragment() {
                 TODO("Not yet implemented")
             }
 
+            override fun addRecipes(from :Int,tag: String?,ingredient: String?) {
+                recipesViewModel.getRecipes(from+statePosition,tag, ingredient)
+                statePosition +=20
+            }
+
         })
 
-        recipesViewModel.getRecipes(null,null)
+        recipesViewModel.getRecipes(0,null,null)
     }
 
     override fun onCreateView(
