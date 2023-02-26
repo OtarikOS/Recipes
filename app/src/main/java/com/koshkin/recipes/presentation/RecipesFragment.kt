@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.koshkin.recipes.App
-import com.koshkin.recipes.LayoutUtils
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipesBinding
 
@@ -25,7 +25,7 @@ class RecipesFragment : Fragment() {
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
 
-    private val recipesViewModel: RecipesViewModel by viewModels {
+    private val recipesViewModel: RecipesViewModel by activityViewModels() {
         Log.i("KEK", requireActivity().application.toString())
         RecipesViewModel.RecipesViewModelFactory(
             ((requireActivity().application) as App).getRemoteRecipes,

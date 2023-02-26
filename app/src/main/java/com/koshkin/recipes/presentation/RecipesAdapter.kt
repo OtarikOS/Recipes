@@ -41,7 +41,7 @@ class RecipesAdapter(
         if (position ==recipes.size-10)
             listener.addRecipes(20,20,null,null)
         recipes[position].also { recipe ->
-            recipe.thumbnailUrl.let { imageUrl ->
+            recipe.thumbnailUrl?.let { imageUrl ->
                 Glide.with(context)
                     .load(imageUrl)
                     .into(holder.ivRecipeCover)
@@ -54,6 +54,10 @@ class RecipesAdapter(
                 holder.tvRecipeID.text = recipe.id.toString()
                 holder.tvRecipeName.text =recipe.name
             }
+        }
+
+        holder.ivRecipeCover.setOnClickListener{
+            listener.moreInfo(recipes[position].id!!)
         }
     }
 
