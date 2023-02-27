@@ -19,9 +19,34 @@
         android:name="com.koshkin.recipes.presentation.screen.RecipeInfoFragment"
         android:label="fragment_recipe_info"
         tools:layout="@layout/fragment_recipe_info" >
+
+        <action
+            android:id="@+id/action_recipeInfoFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment" />
+        <action
+            android:id="@+id/action_recipeInfoFragment_to_placeholder"
+            app:destination="@id/placeholder" />
         <action
             android:id="@+id/action_recipeInfoFragment_to_forecastFragment"
             app:destination="@id/forecastFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.koshkin.recipes.presentation.screen.RecipeDetailsFragment"
+        android:label="fragment_recipe_details"
+        tools:layout="@layout/fragment_recipe_details" >
+        <action
+            android:id="@+id/action_recipeDetailsFragment_to_placeholder2"
+            app:destination="@id/placeholder2" />
+        <action
+            android:id="@+id/action_recipeDetailsFragment_to_forecastFragment"
+            app:destination="@id/forecastFragment" />
+    </fragment>
+    <fragment android:id="@+id/placeholder" >
+        <action
+            android:id="@+id/action_placeholder_to_placeholder2"
+            app:destination="@id/placeholder2" />
+    </fragment>
+    <fragment android:id="@+id/placeholder2" />
 
 </navigation>

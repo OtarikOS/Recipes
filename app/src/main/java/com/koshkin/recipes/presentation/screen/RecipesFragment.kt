@@ -39,8 +39,10 @@ class RecipesFragment : Fragment() {
         super.onCreate(savedInstanceState)
         recipesAdapter = RecipesAdapter(requireContext(), object : RecipesAdapter.ActionClickListener {
             override fun moreInfo(string: String) {
-                    Log.i("REC_FR",string)
-                MAIN.navController.navigate(R.id.action_forecastFragment_to_recipeInfoFragment)
+                    Log.i("REC_FR",string)  //TODO Log
+                val bundle=Bundle()
+                bundle.putString("recipe",string)
+                MAIN.navController.navigate(R.id.action_forecastFragment_to_recipeInfoFragment,bundle)
             }
 
             override fun addRecipes(from :Int,size: Int,tag: String?,ingredient: String?) {

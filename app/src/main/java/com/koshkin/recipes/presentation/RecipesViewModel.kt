@@ -26,12 +26,15 @@ class RecipesViewModel(
     private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     val recipes = _recipes
 
+    private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+    val oneRecipes = _oneRecipes
+
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
     private val _remoteRecipes = arrayListOf<Results>()
 
-    private var _remoteRecipeInfo:Results? =null
+    private var remoteRecipeInfo:Results? =null
 
     fun getRecipes(from: Int,size: Int,tag: String?, ingredient: String?){
         viewModelScope.launch {
@@ -62,10 +65,10 @@ class RecipesViewModel(
             _dataLoading.postValue(true)
             when(val recipesResult = getRecipeInfo.invoke(recipeID)){
                 is Result.Success ->{
-                    _remoteRecipes.clear()
-                    _remoteRecipeInfo= recipesResult.data
+          //          _remoteRecipes.clear()
+                    remoteRecipeInfo= recipesResult.data
 
-                    recipes.value = _remoteRecipes            //TODO сделать через мапер энтити презентейшн
+            //        oneRecipes = _remoteRecipeInfo           //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
                 }
 

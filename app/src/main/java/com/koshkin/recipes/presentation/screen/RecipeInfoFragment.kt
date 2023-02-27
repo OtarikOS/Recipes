@@ -1,6 +1,7 @@
 package com.koshkin.recipes.presentation.screen
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,20 @@ import androidx.fragment.app.activityViewModels
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.presentation.MAIN
 import com.koshkin.recipes.presentation.RecipesAdapter
 import com.koshkin.recipes.presentation.RecipesViewModel
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+
+private const val ARG_PARAM = "recipe"
 
 
 class RecipeInfoFragment : Fragment() {
+    private var recipe: String? = null
+
+    private  var recipeRead:Results? = null
+
     private lateinit var binding: FragmentRecipeInfoBinding
 
     private val recipesViewModel: RecipesViewModel by activityViewModels()
@@ -22,6 +32,11 @@ class RecipeInfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        arguments?.let {
+            recipe = it.getString(ARG_PARAM)
+        }
+       val json = Json
+        recipeRead = recipe?.let { json.decodeFromString(it) }!!
 
     }
 
@@ -36,7 +51,13 @@ class RecipeInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.tvButton.setOnClickListener {
+            val bundle=Bundle()
+            bundle.putInt("Id",recipeRead?.id!!)
+            Log.i("RIF",recipeRead?.id!!.toString())
+            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
+        }
 
-      //  binding.tv.text = info[1].name
+        binding.tv.text = recipeRead?.description
     }
 }
