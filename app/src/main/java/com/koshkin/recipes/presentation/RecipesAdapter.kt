@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.domain.entity.Results
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class RecipesAdapter(
     private val context: Context,
@@ -57,7 +59,9 @@ class RecipesAdapter(
         }
 
         holder.ivRecipeCover.setOnClickListener{
-            listener.moreInfo(recipes[position].id!!)
+            val json=Json
+            val str = json.encodeToString(recipes[position])
+            listener.moreInfo(str)
         }
     }
 
@@ -100,7 +104,7 @@ class RecipesAdapter(
     }
 
     interface ActionClickListener {
-        fun moreInfo(recipeID: Int)
+        fun moreInfo(str:String)
 
         fun addRecipes(from :Int,size : Int,tag: String?,ingredient: String?)
     }

@@ -1,7 +1,9 @@
 package com.koshkin.recipes.domain.entity
 
-import com.google.gson.annotations.SerializedName
 
+import kotlinx.serialization.Serializable
+
+@Serializable                           //     TODO создать ентити для презентейшн и перенести сереализацию туда
 data class Results (
 //     var renditions            : ArrayList<Renditions>   = arrayListOf(),
 //     var canonicalId           : String?                 = null,
@@ -65,6 +67,7 @@ data class Credits (
 
 )
 
+@Serializable
 data class Tags (
 
      var name        : String? = null,
@@ -99,6 +102,7 @@ data class Price (
 
 )
 
+@Serializable
 data class Instructions (
 
 //     var startTime   : Int?    = null,

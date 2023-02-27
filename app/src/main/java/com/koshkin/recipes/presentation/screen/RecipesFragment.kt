@@ -1,4 +1,4 @@
-package com.koshkin.recipes.presentation
+package com.koshkin.recipes.presentation.screen
 
 import android.os.Bundle
 import android.util.Log
@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.koshkin.recipes.App
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipesBinding
+import com.koshkin.recipes.presentation.MAIN
+import com.koshkin.recipes.presentation.RecipesAdapter
+import com.koshkin.recipes.presentation.RecipesViewModel
 
 class RecipesFragment : Fragment() {
     private lateinit var recipesAdapter: RecipesAdapter
@@ -36,8 +38,9 @@ class RecipesFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recipesAdapter = RecipesAdapter(requireContext(), object : RecipesAdapter.ActionClickListener {
-            override fun moreInfo(recipeID: Int) {
-                TODO("Not yet implemented")
+            override fun moreInfo(string: String) {
+                    Log.i("REC_FR",string)
+                MAIN.navController.navigate(R.id.action_forecastFragment_to_recipeInfoFragment)
             }
 
             override fun addRecipes(from :Int,size: Int,tag: String?,ingredient: String?) {
