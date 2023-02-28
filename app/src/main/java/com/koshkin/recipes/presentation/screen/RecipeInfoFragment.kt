@@ -53,8 +53,9 @@ class RecipeInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.tvButton.setOnClickListener {
             val bundle=Bundle()
-            bundle.putInt("Id",recipeRead?.id!!)
-            Log.i("RIF",recipeRead?.id!!.toString())
+            bundle.putString("recipe",recipe)
+//            bundle.putInt("Id",recipeRead?.id!!)
+//            Log.i("RIF",recipeRead?.id!!.toString())
             MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
         }
 

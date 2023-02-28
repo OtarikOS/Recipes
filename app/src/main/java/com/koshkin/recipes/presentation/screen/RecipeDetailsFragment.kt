@@ -11,13 +11,16 @@ import androidx.fragment.app.viewModels
 import com.koshkin.recipes.App
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeDetailsBinding
+import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.presentation.RecipesViewModel
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 import kotlin.math.log
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM = "Id"
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM2 = "recipe"
 
 /**
  * A simple [Fragment] subclass.
@@ -27,20 +30,24 @@ private const val ARG_PARAM2 = "param2"
 class RecipeDetailsFragment : Fragment() {
     private lateinit var binding: FragmentRecipeDetailsBinding
 
+    private  var recipeRead: Results? = null
+
     private val recipesViewModel: RecipesViewModel by activityViewModels()
 
     // TODO: Rename and change types of parameters
     private var idRecipe: Int? = null
-    private var param2: String? = null
+    private var recipe: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            idRecipe = it.getInt(ARG_PARAM)
-     //       param2 = it.getString(ARG_PARAM2)
+      //      idRecipe = it.getInt(ARG_PARAM)
+            recipe = it.getString(ARG_PARAM2)
         }
-        recipesViewModel.getInfoRecipe(idRecipe!!)
-        Log.i("RDF",idRecipe.toString())
+        val json = Json
+        recipeRead = json.decodeFromString(recipe!!)
+//        recipesViewModel.getInfoRecipe(idRecipe!!)
+//        Log.i("RDF",idRecipe.toString())
     }
 
     override fun onCreateView(
@@ -66,10 +73,10 @@ class RecipeDetailsFragment : Fragment() {
 
     //    binding.tvR.text =recipesViewModel.remoteRecipeInfo!!.instructions[0].displayText
 
-        val res = recipesViewModel.oneRecipes
+        val res = recipesViewModel.recipes     // oneRecipes
          res.observe(viewLifecycleOwner,{
-             binding.tvR.text = it.instructions[0].displayText.toString()
-             Log.i("RDF_ovc",it.instructions[0].displayText.toString())
+             binding.tvR.text = recipeRead!!.instructions[0].displayText.toString()
+             Log.i("RDF_ovc",recipeRead!!.instructions[0].displayText.toString())
          })
     }
 }
