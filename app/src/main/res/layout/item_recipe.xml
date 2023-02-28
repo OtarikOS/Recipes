@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="180dp"
     android:layout_margin="16dp"
     app:cardCornerRadius="8dp">
 
@@ -26,8 +26,8 @@
             android:id="@+id/clRecipeInfoContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/ivRecipeCover"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
@@ -36,7 +36,7 @@
                 android:id="@+id/tvRecipeName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="0dp"
                 android:textSize="16sp"
                 android:maxLines="2"
                 app:layout_constraintBottom_toTopOf="@+id/tvRecipeID"
@@ -48,17 +48,17 @@
                 android:id="@+id/tvRecipeID"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="2dp"
                 android:maxLines="2"
                 android:textColor="@color/cardview_dark_background"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="@tools:sample/lorem/random" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

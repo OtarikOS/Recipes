@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
@@ -60,5 +62,10 @@ class RecipeInfoFragment : Fragment() {
         }
 
         binding.tv.text = recipeRead?.description
+        recipeRead!!.thumbnailUrl.let { imageUrl ->
+            Glide.with(requireContext())
+                .load(imageUrl)
+                .into(binding.ivRecipeInfo)
+        }
     }
 }
