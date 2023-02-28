@@ -63,10 +63,13 @@ class RecipeDetailsFragment : Fragment() {
                 false -> {binding.pbLoading2.visibility = View.GONE}
             }
         })
-        val res = recipesViewModel.oneRecipes
 
+    //    binding.tvR.text =recipesViewModel.remoteRecipeInfo!!.instructions[0].displayText
+
+        val res = recipesViewModel.oneRecipes
          res.observe(viewLifecycleOwner,{
-             binding.tvR.text = it.instructions.toString()
+             binding.tvR.text = it.instructions[0].displayText.toString()
+             Log.i("RDF_ovc",it.instructions[0].displayText.toString())
          })
     }
 }

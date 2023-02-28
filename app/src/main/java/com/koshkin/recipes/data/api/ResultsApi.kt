@@ -101,13 +101,14 @@ data class PriceApi (
 
 data class InstructionsApi (
 
-//    @SerializedName("start_time"   ) var startTime   : Int?    = null,
-//    @SerializedName("appliance"    ) var appliance   : String? = null,
-//    @SerializedName("end_time"     ) var endTime     : Int?    = null,
+    @SerializedName("start_time"   ) var startTime   : Int?    = null,
+    @SerializedName("appliance"    ) var appliance   : String? = null,
+    @SerializedName("display_text" ) var displayText : String? = null,
+    @SerializedName("end_time"     ) var endTime     : Int?    = null,
     @SerializedName("temperature"  ) var temperature : String? = null,
     @SerializedName("id"           ) var id          : Int?    = null,
-  //  @SerializedName("position"     ) var position    : Int?    = null,
-    @SerializedName("display_text" ) var displayText : String? = null
+    @SerializedName("position"     ) var position    : Int?    = null,
+  //  @SerializedName("display_text" ) var displayText : String? = null
 
 )
 

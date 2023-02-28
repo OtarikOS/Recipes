@@ -1,5 +1,6 @@
 package com.koshkin.recipes.presentation
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -12,11 +13,16 @@ import com.koshkin.recipes.domain.usecases.GetRecipeInfo
 import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
+import kotlinx.coroutines.coroutineScope
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
     private val getRemoteRecipes: GetRemoteRecipes
 ) :ViewModel(){
+
+
     private val _dataLoading = MutableLiveData(true)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
@@ -34,7 +40,8 @@ class RecipesViewModel(
 
     private val _remoteRecipes = arrayListOf<Results>()
 
-    private var remoteRecipeInfo:Results? =null
+     var remoteRecipeInfo:Results? =null
+
 
     fun getRecipes(from: Int,size: Int,tag: String?, ingredient: String?){
         viewModelScope.launch {
@@ -54,6 +61,7 @@ class RecipesViewModel(
                 is Result.Error ->{
                     _dataLoading.postValue(false)
                     _error.postValue(recipesResult.exception.message)
+                    Log.i("RVM_ERR",recipesResult.exception.message.toString())
                 }
             }
         }
@@ -61,12 +69,15 @@ class RecipesViewModel(
     }
 
     fun getInfoRecipe(recipeID: Int){
+        Log.i("RVM",recipeID.toString())
         viewModelScope.launch {
+            Log.i("RVM","launch")
             _dataLoading.postValue(true)
             when(val recipesResult = getRecipeInfo.invoke(recipeID)){
+
                 is Result.Success ->{
           //          _remoteRecipes.clear()
-                    remoteRecipeInfo= recipesResult.data
+                    _oneRecipes.postValue(recipesResult.data!!)
 
             //        oneRecipes = _remoteRecipeInfo           //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
@@ -79,6 +90,7 @@ class RecipesViewModel(
             }
         }
     }
+
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,

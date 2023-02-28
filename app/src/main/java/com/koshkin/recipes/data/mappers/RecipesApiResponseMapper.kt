@@ -14,10 +14,16 @@ class RecipesApiResponseMapper {
                 it.id,
                 it.instructions.map {
                     Instructions(
+                        it.startTime,
+                        it.appliance,
+                        it.displayText,
+                        it.endTime,
                         it.temperature,
                         it.id,
-                        it.displayText
-                    )
+                        it.position,
+
+
+                        )
                 },
                 it.description,
                 it.tags.map {
@@ -34,16 +40,32 @@ class RecipesApiResponseMapper {
         }
     }
 
-    fun toResults (resultsApi: ResultsApi): Results{
+
+    fun toResults(resultsApi: ResultsApi): Results {
         return Results(
-            id =resultsApi.id,
-            instructions =  resultsApi.instructions.map {
+            id = resultsApi.id,
+            instructions = resultsApi.instructions.map {
                 Instructions(
+                    it.startTime,
+                    it.appliance,
+                    it.displayText,
+                    it.endTime,
                     it.temperature,
                     it.id,
-                    it.temperature
+                    it.position,
                 )
-            }
+            },
+            description = resultsApi.description,
+            tags = resultsApi.tags.map {
+                Tags(
+                    it.name,
+                    it.id,
+                    it.displayName,
+                    it.type
+                )
+            },
+            name = resultsApi.name,
+            thumbnailUrl = resultsApi.thumbnailUrl
         )
     }
 }

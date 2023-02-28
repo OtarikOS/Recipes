@@ -15,6 +15,6 @@ interface RecipesAPI {
                                @Query("tags") tag:String?,
                                @Query("q") ingredient:String?): Response<RecipesApiResponse>
 
-    @GET("recipes/get-more-info?apiKey/{id}")
+    @GET("recipes/get-more-info?${BuildConfig.ApiKey}")
     suspend fun getRecipeInfo(@Query("id") recipeID:Int):Response<ResultsApi>
 }

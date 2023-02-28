@@ -105,13 +105,14 @@ data class Price (
 @Serializable
 data class Instructions (
 
-//     var startTime   : Int?    = null,
-//     var appliance   : String? = null,
-//     var endTime     : Int?    = null,
+     var startTime   : Int?    = null,
+     var appliance   : String? = null,
+     var displayText : String? = null,
+     var endTime     : Int?    = null,
      var temperature : String? = null,
      var id          : Int?    = null,
-  //   var position    : Int?    = null,
-     var displayText : String? = null
+     var position    : Int?    = null,
+  //   var displayText : String? = null
 
 )
 
