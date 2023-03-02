@@ -11,6 +11,7 @@ class RecipesApiResponseMapper {
     fun responseToResults(response: RecipesApiResponse): List<Results> {
         return response.results.map {
             Results(
+                it.aspectRatio,
                 it.id,
                 it.instructions.map {
                     Instructions(
@@ -43,6 +44,7 @@ class RecipesApiResponseMapper {
 
     fun toResults(resultsApi: ResultsApi): Results {
         return Results(
+            aspectRatio = resultsApi.aspectRatio,
             id = resultsApi.id,
             instructions = resultsApi.instructions.map {
                 Instructions(

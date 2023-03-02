@@ -8,7 +8,7 @@ data class ResultsApi (
 //    @SerializedName("seo_path"                 ) var seoPath               : String?                 = null,
 //    @SerializedName("brand"                    ) var brand                 : String?                 = null,
 //    @SerializedName("compilations"             ) var compilations          : ArrayList<String>       = arrayListOf(),
-//    @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
+    @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
 //    @SerializedName("thumbnail_alt_text"       ) var thumbnailAltText      : String?                 = null,
 //    @SerializedName("servings_noun_plural"     ) var servingsNounPlural    : String?                 = null,
 //    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),

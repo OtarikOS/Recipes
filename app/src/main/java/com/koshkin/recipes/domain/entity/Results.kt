@@ -10,7 +10,7 @@ data class Results (
 //     var seoPath               : String?                 = null,
 //     var brand                 : String?                 = null,
 //     var compilations          : ArrayList<String>       = arrayListOf(),
-//     var aspectRatio           : String?                 = null,
+     var aspectRatio           : String?                 = null,
 //     var thumbnailAltText      : String?                 = null,
 //     var servingsNounPlural    : String?                 = null,
 //     var nutrition             : Nutrition?              = Nutrition(),
