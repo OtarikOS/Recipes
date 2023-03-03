@@ -20,6 +20,7 @@ import com.koshkin.recipes.presentation.RecipesViewModel
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
+
 private const val ARG_PARAM = "recipe"
 
 
@@ -29,6 +30,8 @@ class RecipeInfoFragment : Fragment() {
     private  var recipeRead:Results? = null
 
     private var adapter:ArrayAdapter<String>? =null
+    private  var  content:ArrayList<String> = arrayListOf()
+    private var contentCount:ArrayList<String> = arrayListOf()
 
     private lateinit var binding: FragmentRecipeInfoBinding
 
@@ -47,6 +50,7 @@ class RecipeInfoFragment : Fragment() {
         }
        val json = Json
         recipeRead = recipe?.let { json.decodeFromString(it) }!!
+     //   content.add
 
     }
 
@@ -57,6 +61,8 @@ class RecipeInfoFragment : Fragment() {
         // Inflate the layout for this fragment
         binding= FragmentRecipeInfoBinding.inflate(layoutInflater, container, false)
         return binding.root
+
+    //    adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,6 +92,14 @@ class RecipeInfoFragment : Fragment() {
             binding.infoDescription.text = recipeRead?.description
         }
 
+        for(i in 0 until recipeRead!!.instructions.size){
+            content.add(recipeRead!!.instructions[i].displayText.toString())
+            contentCount.add((i+1).toString())
+        }
+
+        adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
+        binding.infoList.adapter = adapter
+        Log.i("RIF",content.size.toString())
 
     }
 

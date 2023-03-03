@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/info_list"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/info_linearlayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/info_linearlayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:paddingStart="8dp"
-        android:paddingTop="16dp"
-        android:paddingEnd="8dp">
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:paddingTop="16dp"
+    android:paddingEnd="8dp"
+    >
 
 
         <TextView
-            android:id="@+id/lis_position"
+            android:id="@+id/list_position"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="8"
@@ -31,4 +26,3 @@
             android:layout_weight="1"
             android:text="TextView" />
     </LinearLayout>
-</ListView>

@@ -13,8 +13,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -92,9 +94,9 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="28dp"
                 android:text="TextView"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/ivRecipeInfo"
                 app:layout_constraintEnd_toEndOf="@id/ivRecipeInfo"
-                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/ivRecipeInfo"
                 app:layout_constraintTop_toTopOf="@id/ivRecipeInfo" />
 
@@ -110,15 +112,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info_description" />
 
-            <ListView
+            <com.koshkin.recipes.presentation.NonScrollListView
                 android:id="@+id/info_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info_components">
+                app:layout_constraintTop_toBottomOf="@id/info_components"
+                >
 
-            </ListView>
+            </com.koshkin.recipes.presentation.NonScrollListView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
