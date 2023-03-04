@@ -112,7 +112,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info_description" />
 
-            <com.koshkin.recipes.presentation.NonScrollListView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/info_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -121,9 +121,9 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info_components"
-                >
+                />
 
-            </com.koshkin.recipes.presentation.NonScrollListView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

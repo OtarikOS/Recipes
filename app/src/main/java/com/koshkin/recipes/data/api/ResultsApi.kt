@@ -21,7 +21,7 @@ data class ResultsApi (
 //    @SerializedName("nutrition_visibility"     ) var nutritionVisibility   : String?                 = null,
     @SerializedName("id"                       ) var id                    : Int?                    = null,
 //    @SerializedName("slug"                     ) var slug                  : String?                 = null,
-//    @SerializedName("sections"                 ) var sections              : ArrayList<SectionsApi>     = arrayListOf(),
+    @SerializedName("sections"                 ) var sections              : ArrayList<SectionsApi>     = arrayListOf(),
 //    @SerializedName("tips_and_ratings_enabled" ) var tipsAndRatingsEnabled : Boolean?                = null,
 //    @SerializedName("beauty_url"               ) var beautyUrl             : String?                 = null,
 //    @SerializedName("updated_at"               ) var updatedAt             : Int?                    = null,
@@ -108,8 +108,6 @@ data class InstructionsApi (
     @SerializedName("temperature"  ) var temperature : String? = null,
     @SerializedName("id"           ) var id          : Int?    = null,
     @SerializedName("position"     ) var position    : Int?    = null,
-  //  @SerializedName("display_text" ) var displayText : String? = null
-
 )
 
 data class SectionsApi (
@@ -154,7 +152,7 @@ data class IngredientApi (
 
 data class MeasurementsApi (
 
-    @SerializedName("unit"     ) var unit     : UnitApi?   = UnitApi(),
+ //   @SerializedName("unit"     ) var unit     : UnitApi?   = UnitApi(),
     @SerializedName("quantity" ) var quantity : String? = null,
     @SerializedName("id"       ) var id       : Int?    = null
 

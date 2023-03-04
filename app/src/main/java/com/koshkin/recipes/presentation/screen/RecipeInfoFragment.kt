@@ -10,10 +10,12 @@ import android.widget.ArrayAdapter
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.presentation.InfoAdapter
 import com.koshkin.recipes.presentation.MAIN
 import com.koshkin.recipes.presentation.RecipesAdapter
 import com.koshkin.recipes.presentation.RecipesViewModel
@@ -25,11 +27,12 @@ private const val ARG_PARAM = "recipe"
 
 
 class RecipeInfoFragment : Fragment() {
+    private lateinit var infoAdapter: InfoAdapter
     private var recipe: String? = null
 
     private  var recipeRead:Results? = null
 
-    private var adapter:ArrayAdapter<String>? =null
+  //  private var adapter:ArrayAdapter<String>? =null
     private  var  content:ArrayList<String> = arrayListOf()
     private var contentCount:ArrayList<String> = arrayListOf()
 
@@ -94,11 +97,16 @@ class RecipeInfoFragment : Fragment() {
 
         for(i in 0 until recipeRead!!.instructions.size){
             content.add(recipeRead!!.instructions[i].displayText.toString())
-            contentCount.add((i+1).toString())
+  //          contentCount.add((i+1).toString())
         }
+     //   infoAdapter =
 
-        adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
-        binding.infoList.adapter = adapter
+   //     adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
+        binding.infoList.apply {
+            layoutManager =
+                LinearLayoutManager(requireContext())
+            adapter = InfoAdapter(requireContext(),content)
+        }
         Log.i("RIF",content.size.toString())
 
     }

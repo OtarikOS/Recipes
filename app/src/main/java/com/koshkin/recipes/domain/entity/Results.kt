@@ -23,7 +23,7 @@ data class Results (
 //     var nutritionVisibility   : String?                 = null,
      var id                    : Int?                    = null,
 //     var slug                  : String?                 = null,
-//     var sections              : ArrayList<Sections>     = arrayListOf(),
+     var sections              : List<Sections>     = arrayListOf(),
 //     var tipsAndRatingsEnabled : Boolean?                = null,
 //     var beautyUrl             : String?                 = null,
 //     var updatedAt             : Int?                    = null,
@@ -112,22 +112,21 @@ data class Instructions (
      var temperature : String? = null,
      var id          : Int?    = null,
      var position    : Int?    = null,
-  //   var displayText : String? = null
 
 )
-
+@Serializable
 data class Sections (
 
      var position   : Int?                  = null,
-     var components : ArrayList<Components> = arrayListOf(),
+     var components : List<Components> = arrayListOf(),
      var name       : String?               = null
 
 )
-
+@Serializable
 data class Components (
 
      var position     : Int?                    = null,
-     var measurements : ArrayList<Measurements> = arrayListOf(),
+     var measurements : List<Measurements> = arrayListOf(),
      var rawText      : String?                 = null,
      var extraComment : String?                 = null,
      var ingredient   : Ingredient?             = Ingredient(),
@@ -144,7 +143,7 @@ data class Unit (
      var name            : String? = null
 
 )
-
+@Serializable
 data class Ingredient (
 
      var updatedAt       : Int?    = null,
@@ -155,10 +154,10 @@ data class Ingredient (
      var displaySingular : String? = null
 
 )
-
+@Serializable
 data class Measurements (
 
-     var unit     : Unit?   = Unit(),
+ //    var unit     : Unit?   = Unit(),
      var quantity : String? = null,
      var id       : Int?    = null
 

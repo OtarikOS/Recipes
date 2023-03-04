@@ -3,9 +3,7 @@ package com.koshkin.recipes.data.mappers
 import com.koshkin.recipes.data.api.InstructionsApi
 import com.koshkin.recipes.data.api.RecipesApiResponse
 import com.koshkin.recipes.data.api.ResultsApi
-import com.koshkin.recipes.domain.entity.Instructions
-import com.koshkin.recipes.domain.entity.Results
-import com.koshkin.recipes.domain.entity.Tags
+import com.koshkin.recipes.domain.entity.*
 
 class RecipesApiResponseMapper {
     fun responseToResults(response: RecipesApiResponse): List<Results> {
@@ -13,6 +11,35 @@ class RecipesApiResponseMapper {
             Results(
                 it.aspectRatio,
                 it.id,
+                it.sections.map {
+                                Sections(
+                                    it.position,
+                                    it.components.map {
+                                                      Components(
+                                                          it.position,
+                                                          it.measurements.map {
+                                                                              Measurements(
+                                                                                  it.quantity,
+                                                                                  it.id,
+                                                                              )
+                                                          },
+                                                          it.rawText,
+                                                          it.extraComment,
+                                                          Ingredient(it.ingredient?.updatedAt,
+                                                                  it.ingredient?.name,
+                                                                  it.ingredient?.createdAt,
+                                                                  it.ingredient?.displayPlural,
+                                                                  it.ingredient?.id,
+                                                                  it.ingredient?.displaySingular),
+
+
+
+                                                          it.id,
+                                                      )
+                                    },
+                                    it.name,
+                                )
+                },
                 it.instructions.map {
                     Instructions(
                         it.startTime,
@@ -46,6 +73,34 @@ class RecipesApiResponseMapper {
         return Results(
             aspectRatio = resultsApi.aspectRatio,
             id = resultsApi.id,
+            sections = resultsApi.sections.map {
+              Sections(
+                  it.position,
+                  it.components.map {
+                                    Components(
+                                        it.position,
+                                        it.measurements.map {
+                                                            Measurements(
+                                                                it.quantity,
+                                                                it.id,
+                                                            )
+                                        },
+                                        it.rawText,
+                                        it.extraComment,
+                                        Ingredient(
+                                            it.ingredient?.updatedAt,
+                                            it.ingredient?.name,
+                                            it.ingredient?.createdAt,
+                                            it.ingredient?.displayPlural,
+                                            it.ingredient?.id,
+                                            it.ingredient?.displaySingular,
+                                    ),
+                                        it.id,
+                                    )
+                  },
+                  it.name,
+              )
+            },
             instructions = resultsApi.instructions.map {
                 Instructions(
                     it.startTime,
