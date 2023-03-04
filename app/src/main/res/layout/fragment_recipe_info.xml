@@ -43,7 +43,7 @@
                 android:id="@+id/info_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="tv_info_description"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -113,16 +113,22 @@
                 app:layout_constraintTop_toBottomOf="@id/info_description" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_ingredient_base"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/info_components" />
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/info_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/info_components"
-                />
-
+                app:layout_constraintTop_toBottomOf="@+id/recycler_ingredient_base" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

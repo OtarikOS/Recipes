@@ -15,10 +15,7 @@ import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
-import com.koshkin.recipes.presentation.InfoAdapter
-import com.koshkin.recipes.presentation.MAIN
-import com.koshkin.recipes.presentation.RecipesAdapter
-import com.koshkin.recipes.presentation.RecipesViewModel
+import com.koshkin.recipes.presentation.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -102,6 +99,8 @@ class RecipeInfoFragment : Fragment() {
      //   infoAdapter =
 
    //     adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
+        binding.recyclerIngredientBase.adapter =BaseIngredientAdapter(requireContext(),content)
+
         binding.infoList.apply {
             layoutManager =
                 LinearLayoutManager(requireContext())

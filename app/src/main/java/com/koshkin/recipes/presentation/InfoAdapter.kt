@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.koshkin.recipes.R
 
-class InfoAdapter(
+ class InfoAdapter(
     private val context: Context,
     private val data: ArrayList<String>
 ) : RecyclerView.Adapter<InfoAdapter.ViewHolder>() {
