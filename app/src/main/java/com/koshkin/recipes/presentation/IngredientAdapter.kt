@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.koshkin.recipes.R
+import com.koshkin.recipes.domain.entity.Components
 
 class IngredientAdapter(
     private val context: Context,
-private val data:ArrayList<String>) : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
+private val data:List<Components>) : RecyclerView.Adapter<IngredientAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return data.size
     }
 
     override fun onBindViewHolder(holder: IngredientAdapter.ViewHolder, position: Int) {
-        holder.tvInfoData.text = data[position]
+        holder.tvInfoData.text = data[position].rawText
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientAdapter.ViewHolder {

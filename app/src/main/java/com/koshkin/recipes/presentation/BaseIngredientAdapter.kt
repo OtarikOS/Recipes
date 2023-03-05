@@ -8,10 +8,11 @@ import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.koshkin.recipes.R
+import com.koshkin.recipes.domain.entity.Sections
 
 class BaseIngredientAdapter(
     private val context: Context,
-    private val data:ArrayList<String>
+    private val data:List<Sections>
 ): RecyclerView.Adapter<BaseIngredientAdapter.ViewHolder>() {
 
    // private val viewPool = RecyclerView.RecycledViewPool()
@@ -30,14 +31,15 @@ class BaseIngredientAdapter(
 //        childLayoutManager.initialPrefetchItemCount = 1
         holder.recyclerView.apply {
           //  layoutManager = childLayoutManager
-            adapter = IngredientAdapter(context,data)
+
+            adapter = IngredientAdapter(context,data[position].components)
          //   setRecycledViewPool(viewPool)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.fragment_recipe_info,parent,false)
+            LayoutInflater.from(context).inflate(R.layout.ingrediens_layout_item,parent,false)
         )
     }
 }
