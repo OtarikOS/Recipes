@@ -11,6 +11,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
@@ -39,6 +40,8 @@ class RecipeInfoFragment : Fragment() {
 
 
 
+
+
     private val recipesViewModel: RecipesViewModel by activityViewModels()
 
     // var info= List<Results>
@@ -63,6 +66,7 @@ class RecipeInfoFragment : Fragment() {
         return binding.root
 
     //    adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -99,7 +103,7 @@ class RecipeInfoFragment : Fragment() {
      //   infoAdapter =
 
    //     adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
-        binding.recyclerIngredientBase.adapter =BaseIngredientAdapter(requireContext(),content)
+        binding.recyclerIngredientBase.adapter =BaseIngredientAdapter(requireContext(),recipeRead!!.sections)
 
         binding.infoList.apply {
             layoutManager =
