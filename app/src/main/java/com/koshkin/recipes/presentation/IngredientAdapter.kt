@@ -29,5 +29,6 @@ private val data:List<Components>) : RecyclerView.Adapter<IngredientAdapter.View
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val tvInfoData: TextView = view.findViewById(R.id.tvIngredient)
 
+
     }
 }

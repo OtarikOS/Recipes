@@ -23,7 +23,7 @@ class BaseIngredientAdapter(
    // private val viewPool = RecyclerView.RecycledViewPool()
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view) {
-        val constraintRoot:RecyclerView = view.findViewById(R.id.constraint_root)
+        val constraintRoot:ConstraintLayout = view.findViewById(R.id.constraint_root)
         val recyclerView:RecyclerView = view.findViewById(R.id.recycler_ingredient_base)
         val ivFB:ImageView=view.findViewById(R.id.favorite_border)
         val scroll:ScrollView = view.findViewById(R.id.scroll)
@@ -36,14 +36,15 @@ class BaseIngredientAdapter(
         val tvComp:TextView =view.findViewById(R.id.info_components)
         val recInfoList:RecyclerView =view.findViewById(R.id.info_list)
         val tvButton:TextView = view.findViewById(R.id.tvButton)
+        val tvSectionName:TextView = view.findViewById(R.id.tv_section_name)
     }
 
     override fun getItemCount(): Int {
-        var size:Int
-        if(data.size>1)
-            size=data.size-1
-        else size= data.size
-        return size
+//        var size:Int
+//        if(data.size>1)
+//            size=data.size-1
+//        else size= data.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -51,37 +52,40 @@ class BaseIngredientAdapter(
         val set =ConstraintSet()
 //        val childLayoutManager = LinearLayoutManager(             holder.recyclerView.context, RecyclerView.VERTICAL, false)
 //        childLayoutManager.initialPrefetchItemCount = 1
-        holder.ivFB.visibility = View.GONE
+       holder.ivFB.visibility = View.GONE
      //   holder.scroll.visibility =View.GONE
         holder.image.visibility =View.GONE
       //  holder.const1.visibility =View.GONE
       //  holder.constraintRoot.visibility = View.GONE
         holder.description.visibility =View.GONE
         holder.ivF.visibility =View.GONE
-        holder.tvName.visibility =View.GONE
+    //    holder.tvName.visibility =View.GONE
         holder.description_16.visibility =View.GONE
         holder.tvComp.visibility =View.GONE
         holder.recInfoList.visibility =View.GONE
         holder.tvButton.visibility =View.GONE
 
+        if(data[position].name!=null){
+            holder.tvName.visibility = View.VISIBLE
+            holder.tvName.text = data[position].name
+        }
+
         set.clear(R.id.recycler_ingredient_base,ConstraintSet.TOP)
-        set.connect(R.id.recycler_ingredient_base,ConstraintSet.TOP,R.id.scroll,ConstraintSet.TOP)
+        set.connect(R.id.recycler_ingredient_base,ConstraintSet.TOP,R.id.constraint_root,ConstraintSet.BOTTOM)
 
         holder.recyclerView.apply {
           //  layoutManager = childLayoutManager
 
-<<<<<<< HEAD
+
             adapter = IngredientAdapter(context,data[position].components)
-=======
-            adapter = IngredientAdapter(context,data[position+1].components)
->>>>>>> design
+
          //   setRecycledViewPool(viewPool)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.ingrediens_layout_item,parent,false)
+            LayoutInflater.from(context).inflate(R.layout.fragment_recipe_info,parent,false)
         )
     }
 }
