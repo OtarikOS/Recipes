@@ -41,7 +41,7 @@ class RecipesAdapter(
         Log.i("R_ADAP",position.toString())
      //   recipes.addAll(recipes)
         if (position ==recipes.size-10)
-            listener.addRecipes(20,20,null,null)
+            listener.addRecipes(31,20,null,null)
         recipes[position].also { recipe ->
             recipe.thumbnailUrl?.let { imageUrl ->
                 Glide.with(context)

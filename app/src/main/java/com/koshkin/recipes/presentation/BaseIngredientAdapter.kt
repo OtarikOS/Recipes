@@ -59,7 +59,7 @@ class BaseIngredientAdapter(
       //  holder.constraintRoot.visibility = View.GONE
         holder.description.visibility =View.GONE
         holder.ivF.visibility =View.GONE
-    //    holder.tvName.visibility =View.GONE
+        holder.tvName.visibility =View.GONE
         holder.description_16.visibility =View.GONE
         holder.tvComp.visibility =View.GONE
         holder.recInfoList.visibility =View.GONE
