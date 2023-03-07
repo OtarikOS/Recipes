@@ -61,7 +61,9 @@ class RecipesAdapter(
         holder.ivRecipeCover.setOnClickListener{
             val json=Json
             val str = json.encodeToString(recipes[position])
+            Log.i("RADAP",str)
             listener.moreInfo(str)
+
         }
     }
 

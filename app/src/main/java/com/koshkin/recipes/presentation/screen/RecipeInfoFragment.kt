@@ -72,11 +72,24 @@ class RecipeInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvButton.setOnClickListener {
-            val bundle=Bundle()
-            bundle.putString("recipe",recipe)
-//            bundle.putInt("Id",recipeRead?.id!!)
-//            Log.i("RIF",recipeRead?.id!!.toString())
-            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
+            recipesViewModel.getInfoRecipe(3517)
+
+            recipeRead = recipesViewModel.oneRecipes
+//            val bundle=Bundle()
+//            bundle.putString("recipe",recipe)
+////            bundle.putInt("Id",recipeRead?.id!!)
+////            Log.i("RIF",recipeRead?.id!!.toString())
+//            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
+        }
+
+        binding.nutritionLinearLayout.setOnClickListener{
+            if(binding.nutritionTableInfo.visibility==View.GONE){
+                binding.nutritionTableInfo.visibility = View.VISIBLE
+                binding.ivMore.setImageResource(R.drawable.ic_baseline_expand_more_24)
+            }else{
+                binding.nutritionTableInfo.visibility =View.GONE
+                binding.ivMore.setImageResource(R.drawable.ic_baseline_expand_less_24)
+            }
         }
 
 
@@ -100,7 +113,18 @@ class RecipeInfoFragment : Fragment() {
             content.add(recipeRead!!.instructions[i].displayText.toString())
   //          contentCount.add((i+1).toString())
         }
-     //   infoAdapter =
+
+        if(recipeRead!!.nutrition?.calories == null)
+            binding.nutritionLinearLayout.visibility = View.GONE
+        else{
+            binding.tvCaloriesInfo.text = recipeRead!!.nutrition?.calories.toString()
+            binding.tvProteinInfo.text = recipeRead!!.nutrition?.protein.toString()
+            binding.tvSugarInfo.text = recipeRead!!.nutrition?.sugar.toString()
+            binding.tvFiberInfo.text = recipeRead!!.nutrition?.fiber.toString()
+            binding.tvCarbohydratesInfo.text = recipeRead!!.nutrition?.carbohydrates.toString()
+            binding.tvFatInfo.text = recipeRead!!.nutrition?.fat.toString()
+            Log.i("RIF", recipeRead!!.nutrition?.calories.toString())
+        }
 
    //     adapter = ArrayAdapter<String>(MAIN,R.layout.list_component,R.id.list_content,content)
         binding.recyclerIngredientBase.adapter =BaseIngredientAdapter(requireContext(),recipeRead!!.sections)

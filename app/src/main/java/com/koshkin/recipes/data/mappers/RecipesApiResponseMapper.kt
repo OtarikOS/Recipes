@@ -10,6 +10,13 @@ class RecipesApiResponseMapper {
         return response.results.map {
             Results(
                 it.aspectRatio,
+                Nutrition(it.nutrition?.sugar,
+                it.nutrition?.carbohydrates,
+                it.nutrition?.fiber,
+                it.nutrition?.updatedAt,
+                it.nutrition?.protein,
+                it.nutrition?.fat,
+                it.nutrition?.calories),
                 it.id,
                 it.sections.map {
                                 Sections(
@@ -72,6 +79,13 @@ class RecipesApiResponseMapper {
     fun toResults(resultsApi: ResultsApi): Results {
         return Results(
             aspectRatio = resultsApi.aspectRatio,
+            nutrition = Nutrition(resultsApi.nutrition?.sugar,
+                resultsApi.nutrition?.carbohydrates,
+                resultsApi.nutrition?.fiber,
+                resultsApi.nutrition?.updatedAt,
+                resultsApi.nutrition?.protein,
+                resultsApi.nutrition?.fat,
+                resultsApi.nutrition?.calories),
             id = resultsApi.id,
             sections = resultsApi.sections.map {
               Sections(

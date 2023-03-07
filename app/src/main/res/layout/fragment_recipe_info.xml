@@ -159,11 +159,11 @@
                 tools:layout_editor_absoluteY="347dp">
 
                 <ImageView
-                    android:id="@+id/ivClose"
+                    android:id="@+id/iv_more"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_baseline_expand_more_24" />
+                    android:src="@drawable/ic_baseline_expand_less_24" />
 
                 <TextView
                     android:id="@+id/tvNutrition"
@@ -180,6 +180,7 @@
                 android:id="@+id/nutrition_table_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nutrition_linear_layout"
@@ -201,9 +202,8 @@
                         android:id="@+id/tv_calories_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="3"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+
+                         />
                     </TableRow>
 
                 <TableRow
@@ -221,9 +221,7 @@
                         android:id="@+id/tv_protein_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="3"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+                         />
                 </TableRow>
 
                 <TableRow
@@ -241,9 +239,7 @@
                         android:id="@+id/tv_sugar_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="3"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+                         />
                 </TableRow>
 
                 <TableRow
@@ -263,7 +259,7 @@
                         android:layout_height="wrap_content"
                         android:layout_span="3"
                         android:ems="10"
-                        android:inputType="textPassword" />
+                         />
                 </TableRow>
 
                 <TableRow
@@ -282,8 +278,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_span="3"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+                         />
                 </TableRow>
 
                 <TableRow
@@ -301,9 +296,7 @@
                         android:id="@+id/tv_fat_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_span="3"
-                        android:ems="10"
-                        android:inputType="textPassword" />
+                         />
                 </TableRow>
 
             </TableLayout>

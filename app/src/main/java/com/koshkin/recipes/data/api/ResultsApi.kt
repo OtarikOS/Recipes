@@ -11,7 +11,7 @@ data class ResultsApi (
     @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
 //    @SerializedName("thumbnail_alt_text"       ) var thumbnailAltText      : String?                 = null,
 //    @SerializedName("servings_noun_plural"     ) var servingsNounPlural    : String?                 = null,
-//    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),
+    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),
 //    @SerializedName("approved_at"              ) var approvedAt            : Int?                    = null,
 //    @SerializedName("topics"                   ) var topics                : ArrayList<TopicsApi>       = arrayListOf(),
 //    @SerializedName("total_time_tier"          ) var totalTimeTier         : TotalTimeTierApi?          = TotalTimeTierApi(),

@@ -13,7 +13,7 @@ data class Results (
      var aspectRatio           : String?                 = null,
 //     var thumbnailAltText      : String?                 = null,
 //     var servingsNounPlural    : String?                 = null,
-//     var nutrition             : Nutrition?              = Nutrition(),
+     var nutrition             : Nutrition?              = Nutrition(),
 //     var approvedAt            : Int?                    = null,
 //     var topics                : ArrayList<Topics>       = arrayListOf(),
 //     var totalTimeTier         : TotalTimeTier?          = TotalTimeTier(),
@@ -176,7 +176,7 @@ data class Topics (
      var slug : String? = null
 
 )
-
+@Serializable
 data class Nutrition (
 
      var sugar         : Int?    = null,

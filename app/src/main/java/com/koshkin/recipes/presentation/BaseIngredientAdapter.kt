@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import android.widget.TableLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -37,6 +38,8 @@ class BaseIngredientAdapter(
         val recInfoList:RecyclerView =view.findViewById(R.id.info_list)
         val tvButton:TextView = view.findViewById(R.id.tvButton)
         val tvSectionName:TextView = view.findViewById(R.id.tv_section_name)
+        val llNutrition:LinearLayout =view.findViewById(R.id.nutrition_linear_layout)
+        val tableLayoutNutrition:TableLayout =view.findViewById(R.id.nutrition_table_info)
     }
 
     override fun getItemCount(): Int {
@@ -64,6 +67,8 @@ class BaseIngredientAdapter(
         holder.tvComp.visibility =View.GONE
         holder.recInfoList.visibility =View.GONE
         holder.tvButton.visibility =View.GONE
+        holder.llNutrition.visibility = View.GONE
+        holder.tableLayoutNutrition.visibility = View.GONE
 
         if(data[position].name!=null){
             holder.tvName.visibility = View.VISIBLE

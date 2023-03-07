@@ -32,8 +32,8 @@ class RecipesViewModel(
     private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     val recipes = _recipes
 
-    private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
-    val oneRecipes = _oneRecipes
+    //private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+    var oneRecipes :Results? =null
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -77,7 +77,7 @@ class RecipesViewModel(
 
                 is Result.Success ->{
           //          _remoteRecipes.clear()
-                    _oneRecipes.postValue(recipesResult.data!!)
+                    oneRecipes=recipesResult.data!!
 
             //        oneRecipes = _remoteRecipeInfo           //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
