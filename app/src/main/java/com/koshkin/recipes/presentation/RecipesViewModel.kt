@@ -13,6 +13,7 @@ import com.koshkin.recipes.domain.usecases.GetRecipeInfo
 import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import java.text.SimpleDateFormat
 import java.util.*
@@ -68,7 +69,7 @@ class RecipesViewModel(
      //   return allowRequest
     }
 
-    fun getInfoRecipe(recipeID: Int){
+    suspend fun getInfoRecipe(recipeID: Int){
         Log.i("RVM",recipeID.toString())
         viewModelScope.launch {
             Log.i("RVM","launch")

@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,8 @@ import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.presentation.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
@@ -27,6 +30,7 @@ private const val ARG_PARAM = "recipe"
 class RecipeInfoFragment : Fragment() {
     private lateinit var infoAdapter: InfoAdapter
     private var recipe: String? = null
+
 
     private  var recipeRead:Results? = null
 
@@ -49,11 +53,12 @@ class RecipeInfoFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            val json = Json
             recipe = it.getString(ARG_PARAM)
+            recipeRead = recipe?.let { json.decodeFromString(it) }!!
         }
-       val json = Json
-        recipeRead = recipe?.let { json.decodeFromString(it) }!!
-     //   content.add
+
+
 
     }
 
@@ -72,9 +77,9 @@ class RecipeInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.tvButton.setOnClickListener {
-            recipesViewModel.getInfoRecipe(3517)
 
-            recipeRead = recipesViewModel.oneRecipes
+
+
 //            val bundle=Bundle()
 //            bundle.putString("recipe",recipe)
 ////            bundle.putInt("Id",recipeRead?.id!!)

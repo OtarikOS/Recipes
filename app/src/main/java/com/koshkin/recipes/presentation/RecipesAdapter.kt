@@ -20,6 +20,8 @@ class RecipesAdapter(
     private val listener: ActionClickListener
 ): RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
 
+
+
     private val recipes: ArrayList<Results> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
 
 
@@ -60,10 +62,13 @@ class RecipesAdapter(
 
         holder.ivRecipeCover.setOnClickListener{
             val json=Json
-            val str = json.encodeToString(recipes[position])
-            Log.i("RADAP",str)
-            listener.moreInfo(str)
-
+            if(recipes[position].nutrition?.calories ==null){
+                listener.moreInfo(recipes[position].id.toString())
+            }else {
+                val str = json.encodeToString(recipes[position])
+                Log.i("RADAP", str)
+                listener.moreInfo(str)
+            }
         }
     }
 
