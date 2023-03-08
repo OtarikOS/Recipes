@@ -71,7 +71,7 @@ class RecipesViewModel(
 
     suspend fun getInfoRecipe(recipeID: Int){
         Log.i("RVM",recipeID.toString())
-        viewModelScope.launch {
+    val job=    viewModelScope.launch {
             Log.i("RVM","launch")
             _dataLoading.postValue(true)
             when(val recipesResult = getRecipeInfo.invoke(recipeID)){
@@ -90,6 +90,7 @@ class RecipesViewModel(
                 }
             }
         }
+        job.join()
     }
 
 

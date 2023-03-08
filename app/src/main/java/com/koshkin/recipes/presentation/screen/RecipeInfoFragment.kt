@@ -55,7 +55,9 @@ class RecipeInfoFragment : Fragment() {
         arguments?.let {
             val json = Json
             recipe = it.getString(ARG_PARAM)
+            Log.i("RIF_OC",recipe.toString())
             recipeRead = recipe?.let { json.decodeFromString(it) }!!
+
         }
 
 

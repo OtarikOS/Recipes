@@ -17,6 +17,7 @@ import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.presentation.MAIN
 import com.koshkin.recipes.presentation.RecipesAdapter
 import com.koshkin.recipes.presentation.RecipesViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -49,33 +50,26 @@ class RecipesFragment : Fragment() {
                 override fun moreInfo(string: String) {
                     val bundle = Bundle()
                     var str: String
+                    var s: String
                     Log.i("REC_FR", string)  //TODO Log
                     viewLifecycleOwner.lifecycleScope.launch {
-
                         val job = launch {
                             if (string.length < 5) {
-
-val job1 = launch {
-    recipesViewModel.getInfoRecipe(string.toInt())
-}
-
+                                Log.i("RF_COROUT", "async")
+                                recipesViewModel.getInfoRecipe(string.toInt())
                                 val json = Json
                                 str = json.encodeToString(recipesViewModel.oneRecipes)
-                                job1.join()
-                            } else str = string
-
-                            bundle.putString("recipe", str)
+                                bundle.putString("recipe", str)
+                            } else bundle.putString("recipe", string)
                         }
-
                         job.join()
                         MAIN.navController.navigate(
                             R.id.action_forecastFragment_to_recipeInfoFragment,
                             bundle
                         )
-
-
-
                     }
+
+
                 }
 
 

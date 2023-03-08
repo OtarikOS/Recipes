@@ -111,7 +111,7 @@ class RecipesAdapter(
     }
 
     interface ActionClickListener {
-        fun moreInfo(str:String)
+         fun moreInfo(str:String)
 
         fun addRecipes(from :Int,size : Int,tag: String?,ingredient: String?)
     }
