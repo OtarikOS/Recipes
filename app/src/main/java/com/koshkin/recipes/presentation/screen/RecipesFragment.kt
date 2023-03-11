@@ -40,6 +40,7 @@ class RecipesFragment : Fragment() {
         RecipesViewModel.RecipesViewModelFactory(
             ((requireActivity().application) as App).getRemoteRecipes,
             ((requireActivity().application) as App).getRecipeInfo,
+            ((requireActivity().application) as App).postRecipe,
         )
     }
 

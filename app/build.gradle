@@ -32,6 +32,7 @@ android {
                 buildConfigField 'String', "ApiKey", localProperties['API_KEY']
                 buildConfigField 'String', "ApiKey2", localProperties['api_key']
                 buildConfigField 'String', 'TASTY_APIS_ENDPOINT', '"https://tasty.p.rapidapi.com/"'
+                buildConfigField "String", 'POST_END_POINT', localProperties['post_request_end_point']
             }
             release {
                 minifyEnabled false
@@ -39,6 +40,7 @@ android {
                 buildConfigField 'String', "ApiKey", localProperties['API_KEY']
                 buildConfigField 'String', "ApiKey2", localProperties['api_key']
                 buildConfigField 'String', 'TASTY_APIS_ENDPOINT', '"https://tasty.p.rapidapi.com/"'
+                buildConfigField "String", 'POST_END_POINT', localProperties['post_request_end_point']
             }
         }
 

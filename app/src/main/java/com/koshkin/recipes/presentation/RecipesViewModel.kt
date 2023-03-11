@@ -13,14 +13,17 @@ import com.koshkin.recipes.domain.usecases.GetRecipeInfo
 import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
+import com.koshkin.recipes.domain.usecases.PostRecipe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
-    private val getRemoteRecipes: GetRemoteRecipes
+    private val getRemoteRecipes: GetRemoteRecipes,
+    private val postRecipe: PostRecipe
 ) :ViewModel(){
 
 
@@ -93,17 +96,25 @@ class RecipesViewModel(
         job.join()
     }
 
+    fun postRecipe(requestBody: RequestBody){
+        viewModelScope.launch {
+            postRecipe.invoke(requestBody)
+        }
+    }
+
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,
-        private val getRecipeInfo: GetRecipeInfo
+        private val getRecipeInfo: GetRecipeInfo,
+        private val postRecipe: PostRecipe
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return RecipesViewModel(
                 getRecipeInfo,
-                getRemoteRecipes
+                getRemoteRecipes,
+                postRecipe
             ) as T
         }
     }

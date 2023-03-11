@@ -82,11 +82,11 @@ class RecipeInfoFragment : Fragment() {
 
 
 
-//            val bundle=Bundle()
-//            bundle.putString("recipe",recipe)
-////            bundle.putInt("Id",recipeRead?.id!!)
-////            Log.i("RIF",recipeRead?.id!!.toString())
-//            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
+            val bundle=Bundle()
+            bundle.putString("recipe",recipe)
+  //          bundle.putInt("Id",recipeRead?.id!!)
+            Log.i("RIF",recipeRead?.id!!.toString())
+            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
         }
 
         binding.nutritionLinearLayout.setOnClickListener{

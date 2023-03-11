@@ -1,11 +1,16 @@
 package com.koshkin.recipes.data.repositories
 
+import android.util.Log
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import com.koshkin.recipes.data.api.RecipesAPI
 import com.koshkin.recipes.data.mappers.RecipesApiResponseMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.Results
+import okhttp3.RequestBody
+import retrofit2.Response
 
 class RecipesRemoteDataSourceImp(
     private val service: RecipesAPI,
@@ -39,5 +44,26 @@ class RecipesRemoteDataSourceImp(
             }catch (e: Exception){
                 return@withContext Result.Error(e)
             }
+        }
+
+    override suspend fun postRecipe(requestBody: RequestBody): Int =
+        withContext(Dispatchers.IO){
+                val response = service.postRecipe(requestBody)
+                if(response.isSuccessful) {
+                    // Convert raw JSON to pretty JSON using GSON library
+                    val gson = GsonBuilder().setPrettyPrinting().create()
+                    val prettyJson = gson.toJson(
+                        JsonParser.parseString(
+                            response.body()?.toString() // About this thread blocking annotation : https://github.com/square/retrofit/issues/3255
+                        )
+                    )
+
+                    Log.d("Pretty Printed JSON :", prettyJson)
+
+                } else {
+
+                    Log.e("RETROFIT_ERROR", response.code().toString())
+
+                }
         }
 }
