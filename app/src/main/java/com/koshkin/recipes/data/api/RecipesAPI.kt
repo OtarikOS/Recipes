@@ -2,6 +2,7 @@ package com.koshkin.recipes.data.api
 
 import com.koshkin.recipes.BuildConfig
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -20,5 +21,5 @@ interface RecipesAPI {
 
   //  @Headers({"Accept: application/json"})
     @POST("${BuildConfig.POST_END_POINT}dbconnect.php")
-    suspend fun postRecipe( @Body requestBody: RequestBody):Response<String>
+    suspend fun postRecipe( @Body requestBody: RequestBody):Response<ResponseBody>
 }
