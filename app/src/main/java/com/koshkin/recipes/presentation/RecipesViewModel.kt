@@ -97,9 +97,10 @@ class RecipesViewModel(
     }
 
     fun postRecipe(requestBody: RequestBody){
-        viewModelScope.launch {
-            postRecipe.invoke(requestBody)
+       val deferred = viewModelScope.async {
+                postRecipe.invoke(requestBody)
         }
+    //    val result = deferred.await()
     }
 
 

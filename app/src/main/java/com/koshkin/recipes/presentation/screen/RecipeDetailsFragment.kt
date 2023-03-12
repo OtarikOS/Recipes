@@ -16,6 +16,7 @@ import com.koshkin.recipes.domain.usecases.PostRecipe
 import com.koshkin.recipes.presentation.RecipesViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -83,10 +84,13 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
             val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
             CoroutineScope(Dispatchers.IO).launch {
-                Log.i("REQUEST",requestBody.toString())
-               recipesViewModel.postRecipe(requestBody)
+                Log.i("REQUEST", requestBody.toString())
+                val def = async {
+                    recipesViewModel.postRecipe(requestBody)
+                }
+                val result = def.await()
+                Log.i("As_RDF",result.toString())
             }
-
         }
 
         recipesViewModel.dataLoading.observe(viewLifecycleOwner, { loading ->

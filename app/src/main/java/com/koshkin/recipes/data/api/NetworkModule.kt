@@ -1,5 +1,6 @@
 package com.koshkin.recipes.data.api
 
+import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,7 +15,7 @@ class NetworkModule {
         loggingInterceptor
     }
 
-    private val httpClient by lazy {
+      private val httpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .build()
