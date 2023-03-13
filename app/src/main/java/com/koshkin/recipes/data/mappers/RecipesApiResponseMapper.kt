@@ -17,6 +17,14 @@ class RecipesApiResponseMapper {
                 it.nutrition?.protein,
                 it.nutrition?.fat,
                 it.nutrition?.calories),
+                it.topics.map {
+                    Topics(
+                        it.name,
+                        it.slug,
+                    )
+                },
+                it.yields,
+                it.cookTimeMinutes,
                 it.id,
                 it.sections.map {
                                 Sections(
@@ -47,6 +55,7 @@ class RecipesApiResponseMapper {
                                     it.name,
                                 )
                 },
+                it.country,
                 it.instructions.map {
                     Instructions(
                         it.startTime,
@@ -61,6 +70,12 @@ class RecipesApiResponseMapper {
                         )
                 },
                 it.description,
+                it.prepTimeMinutes,
+                it.totalTimeMinutes,
+               UserRatings(
+                   it.userRatings?.countPositive,
+                   it.userRatings?.countNegative
+               ),
                 it.tags.map {
                     Tags(
                         it.name,
@@ -86,6 +101,14 @@ class RecipesApiResponseMapper {
                 resultsApi.nutrition?.protein,
                 resultsApi.nutrition?.fat,
                 resultsApi.nutrition?.calories),
+            topics=resultsApi.topics.map {
+                                 Topics(
+                                     it.name,
+                                     it.slug
+                                 )
+            },
+            yields=resultsApi.yields,
+            cookTimeMinutes = resultsApi.cookTimeMinutes,
             id = resultsApi.id,
             sections = resultsApi.sections.map {
               Sections(
@@ -115,6 +138,7 @@ class RecipesApiResponseMapper {
                   it.name,
               )
             },
+            country= resultsApi.country,
             instructions = resultsApi.instructions.map {
                 Instructions(
                     it.startTime,
@@ -127,6 +151,12 @@ class RecipesApiResponseMapper {
                 )
             },
             description = resultsApi.description,
+            prepTimeMinutes = resultsApi.prepTimeMinutes,
+            totalTimeMinutes = resultsApi.totalTimeMinutes,
+            userRatings = UserRatings(
+                resultsApi.userRatings?.countPositive,
+                resultsApi.userRatings?.countNegative
+            ),
             tags = resultsApi.tags.map {
                 Tags(
                     it.name,

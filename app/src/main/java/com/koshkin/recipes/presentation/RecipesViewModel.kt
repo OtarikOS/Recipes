@@ -96,11 +96,11 @@ class RecipesViewModel(
         job.join()
     }
 
-    fun postRecipe(requestBody: RequestBody){
+    suspend fun postRecipe(requestBody: RequestBody): Int{
        val deferred = viewModelScope.async {
                 postRecipe.invoke(requestBody)
         }
-    //    val result = deferred.await()
+        return  deferred.await()
     }
 
 

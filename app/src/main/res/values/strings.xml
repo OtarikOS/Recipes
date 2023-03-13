@@ -5,4 +5,8 @@
     <string name="textview_button">Показать больше</string>
     <string name="components">Состав</string>
     <string name="nutrition">Пищевая ценость</string>
+    <string name="toast_gut">Добавлен</string>
+    <string name="toast_exists">Уже сушествует</string>
+    <string name="toast_nodb">База не доступна</string>
+    <string name="toast_500">Сервер не досупен</string>
 </resources>

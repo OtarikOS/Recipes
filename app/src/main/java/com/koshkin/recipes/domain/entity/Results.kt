@@ -15,11 +15,11 @@ data class Results (
 //     var servingsNounPlural    : String?                 = null,
      var nutrition             : Nutrition?              = Nutrition(),
 //     var approvedAt            : Int?                    = null,
-//     var topics                : ArrayList<Topics>       = arrayListOf(),
+     var topics                : List<Topics>       = arrayListOf(),
 //     var totalTimeTier         : TotalTimeTier?          = TotalTimeTier(),
-//     var yields                : String?                 = null,
+     var yields                : String?                 = null,
 //     var originalVideoUrl      : String?                 = null,
-//     var cookTimeMinutes       : Int?                    = null,
+     var cookTimeMinutes       : Int?                    = null,
 //     var nutritionVisibility   : String?                 = null,
      var id                    : Int?                    = null,
 //     var slug                  : String?                 = null,
@@ -27,7 +27,7 @@ data class Results (
 //     var tipsAndRatingsEnabled : Boolean?                = null,
 //     var beautyUrl             : String?                 = null,
 //     var updatedAt             : Int?                    = null,
-//     var country               : String?                 = null,
+     var country               : String?                 = null,
      var instructions          : List<Instructions> = arrayListOf(),
 //     var keywords              : String?                 = null,
 //     var facebookPosts         : ArrayList<String>       = arrayListOf(),
@@ -42,17 +42,17 @@ data class Results (
 //     var videoUrl              : String?                 = null,
 //     var isOneTop              : Boolean?                = null,
 //     var servingsNounSingular  : String?                 = null,
-//     var prepTimeMinutes       : Int?                    = null,
+     var prepTimeMinutes       : Int?                    = null,
 //     var numServings           : Int?                    = null,
 //     var buzzId                : String?                 = null,
 //     var inspiredByUrl         : String?                 = null,
-//     var totalTimeMinutes      : Int?                    = null,
+     var totalTimeMinutes      : Int?                    = null,
 //     var videoAdContent        : String?                 = null,
 //     var seoTitle              : String?                 = null,
 //     var isShoppable           : Boolean?                = null,
 //     var promotion             : String?                 = null,
 //     var language              : String?                 = null,
-//     var userRatings           : UserRatings?            = UserRatings(),
+     var userRatings           : UserRatings?            = UserRatings(),
      var tags                  : List<Tags>         = arrayListOf(),
      var name                  : String?                 = null,
      var thumbnailUrl          : String?                 = null,
@@ -77,6 +77,7 @@ data class Tags (
 
 )
 
+@Serializable
 data class UserRatings (
 
      var countPositive : Int? = null,
@@ -169,7 +170,7 @@ data class TotalTimeTier (
      var displayTier : String? = null
 
 )
-
+@Serializable
 data class Topics (
 
      var name : String? = null,

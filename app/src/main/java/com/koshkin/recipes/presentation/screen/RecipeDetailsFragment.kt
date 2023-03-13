@@ -6,18 +6,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import com.koshkin.recipes.App
+import com.koshkin.recipes.R
 import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.databinding.FragmentRecipeDetailsBinding
 import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.usecases.PostRecipe
 import com.koshkin.recipes.presentation.RecipesViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
@@ -78,19 +77,33 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
     //    recipesViewModel.getInfoRecipe(idRecipe!!)
         binding.button.setOnClickListener{
+            var result:Int? = null
             val jsonObject = JSONObject()
             jsonObject.put("id",recipeRead!!.id)
 
             Log.i("POST_RDF", recipeRead!!.id.toString())
 
             val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
-            CoroutineScope(Dispatchers.IO).launch {
+            CoroutineScope(Dispatchers.Main).launch {
                 Log.i("REQUEST", requestBody.toString())
                 val def = async {
                     recipesViewModel.postRecipe(requestBody)
                 }
-                val result = def.await()
-                Log.i("As_RDF",result.toString())
+                result = def.await()
+
+
+                Log.i("As_RDF", result.toString())
+                var message: Int? = null
+                if (result == 500)
+                    message = R.string.toast_500
+                if (result == 200)
+                    message = R.string.toast_gut
+                if (result == 470)
+                    message = R.string.toast_nodb
+                if (result == 477)
+                    message = R.string.toast_exists
+
+                Toast.makeText(context, message!!, Toast.LENGTH_SHORT).show()
             }
         }
 
