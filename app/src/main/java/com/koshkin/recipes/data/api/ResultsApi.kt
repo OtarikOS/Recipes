@@ -8,24 +8,24 @@ data class ResultsApi (
 //    @SerializedName("seo_path"                 ) var seoPath               : String?                 = null,
 //    @SerializedName("brand"                    ) var brand                 : String?                 = null,
 //    @SerializedName("compilations"             ) var compilations          : ArrayList<String>       = arrayListOf(),
-//    @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
+    @SerializedName("aspect_ratio"             ) var aspectRatio           : String?                 = null,
 //    @SerializedName("thumbnail_alt_text"       ) var thumbnailAltText      : String?                 = null,
 //    @SerializedName("servings_noun_plural"     ) var servingsNounPlural    : String?                 = null,
-//    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),
+    @SerializedName("nutrition"                ) var nutrition             : NutritionApi?              = NutritionApi(),
 //    @SerializedName("approved_at"              ) var approvedAt            : Int?                    = null,
-//    @SerializedName("topics"                   ) var topics                : ArrayList<TopicsApi>       = arrayListOf(),
+    @SerializedName("topics"                   ) var topics                : ArrayList<TopicsApi>       = arrayListOf(), // TODO
 //    @SerializedName("total_time_tier"          ) var totalTimeTier         : TotalTimeTierApi?          = TotalTimeTierApi(),
-//    @SerializedName("yields"                   ) var yields                : String?                 = null,
+    @SerializedName("yields"                   ) var yields                : String?                 = null,   //TODO
 //    @SerializedName("original_video_url"       ) var originalVideoUrl      : String?                 = null,
-//    @SerializedName("cook_time_minutes"        ) var cookTimeMinutes       : Int?                    = null,
+    @SerializedName("cook_time_minutes"        ) var cookTimeMinutes       : Int?                    = null,   //TODO
 //    @SerializedName("nutrition_visibility"     ) var nutritionVisibility   : String?                 = null,
     @SerializedName("id"                       ) var id                    : Int?                    = null,
 //    @SerializedName("slug"                     ) var slug                  : String?                 = null,
-//    @SerializedName("sections"                 ) var sections              : ArrayList<SectionsApi>     = arrayListOf(),
+    @SerializedName("sections"                 ) var sections              : ArrayList<SectionsApi>     = arrayListOf(),
 //    @SerializedName("tips_and_ratings_enabled" ) var tipsAndRatingsEnabled : Boolean?                = null,
 //    @SerializedName("beauty_url"               ) var beautyUrl             : String?                 = null,
 //    @SerializedName("updated_at"               ) var updatedAt             : Int?                    = null,
-//    @SerializedName("country"                  ) var country               : String?                 = null,
+    @SerializedName("country"                  ) var country               : String?                 = null,     //TODO
     @SerializedName("instructions"             ) var instructions          : ArrayList<InstructionsApi> = arrayListOf(),
 //    @SerializedName("keywords"                 ) var keywords              : String?                 = null,
 //    @SerializedName("facebook_posts"           ) var facebookPosts         : ArrayList<String>       = arrayListOf(),
@@ -40,17 +40,17 @@ data class ResultsApi (
 //    @SerializedName("video_url"                ) var videoUrl              : String?                 = null,
 //    @SerializedName("is_one_top"               ) var isOneTop              : Boolean?                = null,
 //    @SerializedName("servings_noun_singular"   ) var servingsNounSingular  : String?                 = null,
-//    @SerializedName("prep_time_minutes"        ) var prepTimeMinutes       : Int?                    = null,
+    @SerializedName("prep_time_minutes"        ) var prepTimeMinutes       : Int?                    = null,   //TODO
 //    @SerializedName("num_servings"             ) var numServings           : Int?                    = null,
 //    @SerializedName("buzz_id"                  ) var buzzId                : String?                 = null,
 //    @SerializedName("inspired_by_url"          ) var inspiredByUrl         : String?                 = null,
-//    @SerializedName("total_time_minutes"       ) var totalTimeMinutes      : Int?                    = null,
+    @SerializedName("total_time_minutes"       ) var totalTimeMinutes      : Int?                    = null,   //TODO
 //    @SerializedName("video_ad_content"         ) var videoAdContent        : String?                 = null,
 //    @SerializedName("seo_title"                ) var seoTitle              : String?                 = null,
 //    @SerializedName("is_shoppable"             ) var isShoppable           : Boolean?                = null,
 //    @SerializedName("promotion"                ) var promotion             : String?                 = null,
 //    @SerializedName("language"                 ) var language              : String?                 = null,
-//    @SerializedName("user_ratings"             ) var userRatings           : UserRatingsApi?            = UserRatingsApi(),
+    @SerializedName("user_ratings"             ) var userRatings           : UserRatingsApi?            = UserRatingsApi(),  //TODO
     @SerializedName("tags"                     ) var tags                  : ArrayList<TagsApi>         = arrayListOf(),
     @SerializedName("name"                     ) var name                  : String?                 = null,
     @SerializedName("thumbnail_url"            ) var thumbnailUrl          : String?                 = null,
@@ -77,7 +77,7 @@ data class TagsApi (
 data class UserRatingsApi (
 
     @SerializedName("count_positive" ) var countPositive : Int? = null,
-    @SerializedName("score"          ) var score         : Int? = null,
+//    @SerializedName("score"          ) var score         : Int? = null,
     @SerializedName("count_negative" ) var countNegative : Int? = null
 
 )
@@ -108,8 +108,6 @@ data class InstructionsApi (
     @SerializedName("temperature"  ) var temperature : String? = null,
     @SerializedName("id"           ) var id          : Int?    = null,
     @SerializedName("position"     ) var position    : Int?    = null,
-  //  @SerializedName("display_text" ) var displayText : String? = null
-
 )
 
 data class SectionsApi (
@@ -154,7 +152,7 @@ data class IngredientApi (
 
 data class MeasurementsApi (
 
-    @SerializedName("unit"     ) var unit     : UnitApi?   = UnitApi(),
+ //   @SerializedName("unit"     ) var unit     : UnitApi?   = UnitApi(),
     @SerializedName("quantity" ) var quantity : String? = null,
     @SerializedName("id"       ) var id       : Int?    = null
 
