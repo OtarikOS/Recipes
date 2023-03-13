@@ -20,6 +20,8 @@ class RecipesAdapter(
     private val listener: ActionClickListener
 ): RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
 
+
+
     private val recipes: ArrayList<Results> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
 
 
@@ -41,7 +43,7 @@ class RecipesAdapter(
         Log.i("R_ADAP",position.toString())
      //   recipes.addAll(recipes)
         if (position ==recipes.size-10)
-            listener.addRecipes(20,20,null,null)
+            listener.addRecipes(31,20,null,null)
         recipes[position].also { recipe ->
             recipe.thumbnailUrl?.let { imageUrl ->
                 Glide.with(context)
@@ -60,8 +62,13 @@ class RecipesAdapter(
 
         holder.ivRecipeCover.setOnClickListener{
             val json=Json
-            val str = json.encodeToString(recipes[position])
-            listener.moreInfo(str)
+            if(recipes[position].nutrition?.calories ==null){
+                listener.moreInfo(recipes[position].id.toString())
+            }else {
+                val str = json.encodeToString(recipes[position])
+                Log.i("RADAP", str)
+                listener.moreInfo(str)
+            }
         }
     }
 
@@ -104,7 +111,7 @@ class RecipesAdapter(
     }
 
     interface ActionClickListener {
-        fun moreInfo(str:String)
+         fun moreInfo(str:String)
 
         fun addRecipes(from :Int,size : Int,tag: String?,ingredient: String?)
     }

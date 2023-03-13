@@ -13,13 +13,17 @@ import com.koshkin.recipes.domain.usecases.GetRecipeInfo
 import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
+import com.koshkin.recipes.domain.usecases.PostRecipe
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import okhttp3.RequestBody
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
-    private val getRemoteRecipes: GetRemoteRecipes
+    private val getRemoteRecipes: GetRemoteRecipes,
+    private val postRecipe: PostRecipe
 ) :ViewModel(){
 
 
@@ -32,8 +36,8 @@ class RecipesViewModel(
     private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     val recipes = _recipes
 
-    private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
-    val oneRecipes = _oneRecipes
+    //private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+    var oneRecipes :Results? =null
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -68,16 +72,16 @@ class RecipesViewModel(
      //   return allowRequest
     }
 
-    fun getInfoRecipe(recipeID: Int){
+    suspend fun getInfoRecipe(recipeID: Int){
         Log.i("RVM",recipeID.toString())
-        viewModelScope.launch {
+    val job=    viewModelScope.launch {
             Log.i("RVM","launch")
             _dataLoading.postValue(true)
             when(val recipesResult = getRecipeInfo.invoke(recipeID)){
 
                 is Result.Success ->{
           //          _remoteRecipes.clear()
-                    _oneRecipes.postValue(recipesResult.data!!)
+                    oneRecipes=recipesResult.data!!
 
             //        oneRecipes = _remoteRecipeInfo           //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
@@ -89,19 +93,29 @@ class RecipesViewModel(
                 }
             }
         }
+        job.join()
+    }
+
+    suspend fun postRecipe(requestBody: RequestBody): Int{
+       val deferred = viewModelScope.async {
+                postRecipe.invoke(requestBody)
+        }
+        return  deferred.await()
     }
 
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,
-        private val getRecipeInfo: GetRecipeInfo
+        private val getRecipeInfo: GetRecipeInfo,
+        private val postRecipe: PostRecipe
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return RecipesViewModel(
                 getRecipeInfo,
-                getRemoteRecipes
+                getRemoteRecipes,
+                postRecipe
             ) as T
         }
     }
