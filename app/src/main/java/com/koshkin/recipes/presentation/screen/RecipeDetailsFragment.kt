@@ -78,12 +78,12 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     //    recipesViewModel.getInfoRecipe(idRecipe!!)
         binding.button.setOnClickListener{
             var result:Int? = null
-            val jsonObject = JSONObject()
-            jsonObject.put("id",recipeRead!!.id)
+//            val jsonObject = JSONObject()
+//            jsonObject.put("id",recipeRead!!.id)
+//
+//            Log.i("POST_RDF", recipeRead!!.id.toString())
 
-            Log.i("POST_RDF", recipeRead!!.id.toString())
-
-            val requestBody = jsonObject.toString().toRequestBody("application/json".toMediaTypeOrNull())
+            val requestBody = recipe!!.toRequestBody("application/json".toMediaTypeOrNull())
             CoroutineScope(Dispatchers.Main).launch {
                 Log.i("REQUEST", requestBody.toString())
                 val def = async {
@@ -94,9 +94,11 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
                 Log.i("As_RDF", result.toString())
                 var message: Int? = null
+                if (result == 200)
+                    message = R.string.toast_200
                 if (result == 500)
                     message = R.string.toast_500
-                if (result == 200)
+                if (result == 229)
                     message = R.string.toast_gut
                 if (result == 470)
                     message = R.string.toast_nodb

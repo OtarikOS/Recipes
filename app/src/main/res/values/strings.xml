@@ -8,5 +8,6 @@
     <string name="toast_gut">Добавлен</string>
     <string name="toast_exists">Уже сушествует</string>
     <string name="toast_nodb">База не доступна</string>
-    <string name="toast_500">Сервер не досупен</string>
+    <string name="toast_500">Ошибка сервера</string>
+    <string name="toast_200">Что-то не так </string>
 </resources>
