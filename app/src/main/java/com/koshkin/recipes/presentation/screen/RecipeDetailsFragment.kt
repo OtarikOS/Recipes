@@ -13,6 +13,7 @@ import com.koshkin.recipes.R
 import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.databinding.FragmentRecipeDetailsBinding
+import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.transformation.ConvertedResults
 import com.koshkin.recipes.domain.usecases.PostRecipe
@@ -26,6 +27,7 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.http.Header
+import com.koshkin.recipes.domain.common.Result
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +43,8 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     private lateinit var binding: FragmentRecipeDetailsBinding
 
     private  var recipeRead: Results? = null
+
+    private var keyTrans: KeyTrans? = null
 
     private lateinit var converter: ConvertedResults
 
@@ -133,6 +137,16 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 //             binding.tvR.text = recipeRead!!.instructions[0].displayText.toString()
 //             Log.i("RDF_ovc",recipeRead!!.instructions[0].displayText.toString())
 //         })
+
+        binding.btnKey.setOnClickListener{
+            CoroutineScope(Dispatchers.IO).launch{
+                val job =launch {
+                    recipesViewModel.getKey()
+                }
+                job.join()
+                Log.i("RDF_key",recipesViewModel.keyTrans?.key!!)
+            }
+        }
 
 
 

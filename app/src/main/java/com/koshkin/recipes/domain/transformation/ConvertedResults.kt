@@ -39,29 +39,30 @@ class ConvertedResults(private val results: Results) {
                     break
                 } else if (results.sections[position_sect].components[position_comp].measurements.size>1) { //Проверка для замены фунтов на граммы
                     val array = arrayListOf<Int>()
-                 //   var replacement: String
-                  //  for(position_meas: Int in 0 until results.sections[position_sect].components[position_comp].measurements.size) {
-                        for (i: Int in 0 until results.sections[position_sect].components[position_comp].measurements.size) {
-                            results.sections[position_sect].components[position_comp].measurements[i].quantity!!.toIntOrNull()
-                                ?.let { array.add(it) }
-                        }
-                   // }
-                   val replacement = array.max().toString()
+                    //   var replacement: String
+                    //  for(position_meas: Int in 0 until results.sections[position_sect].components[position_comp].measurements.size) {
+                    for (i: Int in 0 until results.sections[position_sect].components[position_comp].measurements.size) {
+                        results.sections[position_sect].components[position_comp].measurements[i].quantity!!.toIntOrNull()
+                            ?.let { array.add(it) }
+                    }
+                    // }
+                    val replacement = array.max().toString()
                     val str =
                         convertString(
                             results.sections[position_sect].components[position_comp].rawText,
                             replacement
                         )
                     bodyResult.add(str)
-
+                }else {
                     bodyResult.add(
                         results.sections[position_sect].components[position_comp].rawText ?: "7777"
                     )
+                }
                     bodyResult.add(
                         results.sections[position_sect].components[position_comp].ingredient?.name
                             ?: "7777"
                     )
-                }
+
             }
             }
         }

@@ -13,6 +13,8 @@ import com.koshkin.recipes.domain.usecases.GetRecipeInfo
 import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
+import com.koshkin.recipes.domain.entity.KeyTrans
+import com.koshkin.recipes.domain.usecases.GetKey
 import com.koshkin.recipes.domain.usecases.PostRecipe
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -23,7 +25,8 @@ import java.util.*
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
     private val getRemoteRecipes: GetRemoteRecipes,
-    private val postRecipe: PostRecipe
+    private val postRecipe: PostRecipe,
+    private val getKey: GetKey
 ) :ViewModel(){
 
 
@@ -38,6 +41,8 @@ class RecipesViewModel(
 
     //private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     var oneRecipes :Results? =null
+
+    var keyTrans: KeyTrans? = null
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -103,11 +108,26 @@ class RecipesViewModel(
         return  deferred.await()
     }
 
+    suspend fun getKey(){
+       val job = viewModelScope.launch {
+           when(val keyResult = getKey.invoke()){
+               is Result.Success ->{
+                   keyTrans = keyResult.data
+               }
+               is Result.Error ->{
+                   _error.postValue(keyResult.exception.message)
+               }
+           }
+        }
+         job.join()
+    }
+
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,
         private val getRecipeInfo: GetRecipeInfo,
-        private val postRecipe: PostRecipe
+        private val postRecipe: PostRecipe,
+        private var getKey: GetKey
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
@@ -115,7 +135,8 @@ class RecipesViewModel(
             return RecipesViewModel(
                 getRecipeInfo,
                 getRemoteRecipes,
-                postRecipe
+                postRecipe,
+                getKey
             ) as T
         }
     }
