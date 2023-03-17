@@ -14,6 +14,7 @@ import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.databinding.FragmentRecipeDetailsBinding
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.transformation.ConvertedResults
 import com.koshkin.recipes.domain.usecases.PostRecipe
 import com.koshkin.recipes.presentation.RecipesViewModel
 import kotlinx.coroutines.*
@@ -40,6 +41,8 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     private lateinit var binding: FragmentRecipeDetailsBinding
 
     private  var recipeRead: Results? = null
+
+    private lateinit var converter: ConvertedResults
 
   //  private val postRecipe: PostRecipe =((activity?.application) as App).postRecipe
 
@@ -109,6 +112,12 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
             }
         }
 
+        binding.btnTrans.setOnClickListener{
+            converter = ConvertedResults(recipeRead!!)
+            val str = converter.toArrayForRequest()
+            Log.i("RDF_convert",str.toString())
+        }
+
         recipesViewModel.dataLoading.observe(viewLifecycleOwner, { loading ->
             when (loading) {
                 true -> {binding.pbLoading2.visibility = View.VISIBLE}
@@ -124,6 +133,8 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 //             binding.tvR.text = recipeRead!!.instructions[0].displayText.toString()
 //             Log.i("RDF_ovc",recipeRead!!.instructions[0].displayText.toString())
 //         })
+
+
 
 
     }

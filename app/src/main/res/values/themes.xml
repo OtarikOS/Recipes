@@ -13,4 +13,14 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="PurpleButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#009688</item>
+        <item name="colorControlHighlight">#0A8E64</item>
+    </style>
+
+    <style name="DeletButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#FF5900</item>
+        <item name="colorControlHighlight">#F44336</item>
+    </style>
 </resources>
