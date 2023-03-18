@@ -1,9 +1,10 @@
 package com.koshkin.recipes.domain.entity
 
+import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 
-@Serializable
+//@Serializable
 data class KeyTrans(
-    var key: String? = null
+ @SerializedName("key")   var key: String? = null
 )

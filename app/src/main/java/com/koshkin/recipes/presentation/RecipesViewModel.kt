@@ -108,18 +108,21 @@ class RecipesViewModel(
         return  deferred.await()
     }
 
-    suspend fun getKey(){
-       val job = viewModelScope.launch {
-           when(val keyResult = getKey.invoke()){
-               is Result.Success ->{
-                   keyTrans = keyResult.data
-               }
-               is Result.Error ->{
-                   _error.postValue(keyResult.exception.message)
-               }
-           }
+    suspend fun getKey():KeyTrans{
+       val def = viewModelScope.async {
+//           when(val keyResult =
+               getKey.invoke()
+//               is Result.Success ->{
+//                   keyTrans = keyResult.data
+//  //                 Log.i("RVM_key_success", keyResult.data.toString())
+//               }
+//               is Result.Error ->{
+//                   _error.postValue(keyResult.exception.message)
+//  //                 Log.i("RVM_ERR_key_error",keyResult.exception.message.toString())
+//               }
+//           }
         }
-         job.join()
+         return def.await()
     }
 
 

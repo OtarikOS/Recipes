@@ -14,5 +14,5 @@ interface RecipesRemoteDataSource {
 
     suspend fun postRecipe(requestBody: RequestBody): Int
 
-    suspend fun getKey(): Result<KeyTrans>
+    suspend fun getKey(): KeyTrans
 }

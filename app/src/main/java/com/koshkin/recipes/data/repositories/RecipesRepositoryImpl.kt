@@ -21,7 +21,7 @@ class RecipesRepositoryImpl(private val remoteDataSource: RecipesRemoteDataSourc
         return remoteDataSource.postRecipe(requestBody)
     }
 
-    override suspend fun getKey(): Result<KeyTrans> {
+    override suspend fun getKey(): KeyTrans {
         return  remoteDataSource.getKey()
     }
 

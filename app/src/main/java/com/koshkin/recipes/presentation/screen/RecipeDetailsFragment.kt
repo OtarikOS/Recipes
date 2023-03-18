@@ -56,6 +56,8 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     private var idRecipe: Int? = null
     private var recipe: String? = null
 
+    private var str: ArrayList<String> = arrayListOf()
+
    // private val postRecipe: PostRecipe
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,7 +120,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
         binding.btnTrans.setOnClickListener{
             converter = ConvertedResults(recipeRead!!)
-            val str = converter.toArrayForRequest()
+             str = converter.toArrayForRequest()
             Log.i("RDF_convert",str.toString())
         }
 
@@ -140,14 +142,15 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
         binding.btnKey.setOnClickListener{
             CoroutineScope(Dispatchers.IO).launch{
-                val job =launch {
+                val def =async {
                     recipesViewModel.getKey()
                 }
-                job.join()
-                Log.i("RDF_key",recipesViewModel.keyTrans?.key!!)
+                keyTrans = def.await()
+                Log.i("RDF_key",keyTrans?.key!!)
             }
         }
 
+    //    val body:RequestBody = RequestBody.create()
 
 
 
