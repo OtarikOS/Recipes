@@ -9,13 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.koshkin.recipes.R
 import com.koshkin.recipes.domain.entity.Results
-import com.koshkin.recipes.domain.usecases.GetRecipeInfo
-import com.koshkin.recipes.domain.usecases.GetRemoteRecipes
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.KeyTrans
-import com.koshkin.recipes.domain.usecases.GetKey
-import com.koshkin.recipes.domain.usecases.PostRecipe
+import com.koshkin.recipes.domain.entity.Translate
+import com.koshkin.recipes.domain.usecases.*
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import okhttp3.RequestBody
@@ -26,7 +24,8 @@ class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
     private val getRemoteRecipes: GetRemoteRecipes,
     private val postRecipe: PostRecipe,
-    private val getKey: GetKey
+    private val getKey: GetKey,
+    private val getTranslate: GetTranslate
 ) :ViewModel(){
 
 
@@ -125,12 +124,20 @@ class RecipesViewModel(
          return def.await()
     }
 
+    suspend fun translate(authorizationKey:String ,requestBody: RequestBody): Translate{
+        val deferred = viewModelScope.async {
+            getTranslate.invoke(authorizationKey,requestBody)
+        }
+        return  deferred.await()
+    }
+
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,
         private val getRecipeInfo: GetRecipeInfo,
         private val postRecipe: PostRecipe,
-        private var getKey: GetKey
+        private var getKey: GetKey,
+        private val getTranslate: GetTranslate
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
@@ -139,7 +146,8 @@ class RecipesViewModel(
                 getRecipeInfo,
                 getRemoteRecipes,
                 postRecipe,
-                getKey
+                getKey,
+                getTranslate
             ) as T
         }
     }

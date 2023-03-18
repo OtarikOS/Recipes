@@ -11,6 +11,7 @@ import kotlinx.coroutines.withContext
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.entity.Translate
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.decodeFromJsonElement
@@ -133,5 +134,26 @@ class RecipesRemoteDataSourceImp(
 //                Log.i("res_RRDS_catch",e.message.toString())
 ////             //   return@withContext Result.Error(e)
             // }
+        }
+
+    override suspend fun translate(
+        authorizationKey: String,
+        requestBody: RequestBody
+    ): Translate =
+        withContext(Dispatchers.IO) {
+            val result: Translate?
+            val response = service.translate(authorizationKey,requestBody)
+            if (response.isSuccessful) {
+                Log.i("res_RRDS_key", response.body().toString())
+                result = response.body()
+                Log.i("res_RRDS_key2", result?.translations.toString())
+
+            } else {
+                Log.i("res_RRDS_else_key", response.errorBody().toString())
+                // return@withContext Result.Error(Exception(response.message()))
+
+                result = response.body()
+            }
+            return@withContext result!!
         }
 }

@@ -28,6 +28,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.http.Header
 import com.koshkin.recipes.domain.common.Result
+import com.koshkin.recipes.domain.entity.TransRequestBody
+import kotlinx.serialization.encodeToString
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,7 +58,11 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     private var idRecipe: Int? = null
     private var recipe: String? = null
 
+    private var key:String? = null
+
     private var str: ArrayList<String> = arrayListOf()
+
+    private var transRequestBody:TransRequestBody = TransRequestBody()
 
    // private val postRecipe: PostRecipe
 
@@ -118,11 +124,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
             }
         }
 
-        binding.btnTrans.setOnClickListener{
-            converter = ConvertedResults(recipeRead!!)
-             str = converter.toArrayForRequest()
-            Log.i("RDF_convert",str.toString())
-        }
+
 
         recipesViewModel.dataLoading.observe(viewLifecycleOwner, { loading ->
             when (loading) {
@@ -151,8 +153,34 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
         }
 
     //    val body:RequestBody = RequestBody.create()
+        binding.btnTrans.setOnClickListener {
+            converter = ConvertedResults(recipeRead!!)
+            str = converter.toArrayForRequest()
+            Log.i("RDF_convert", str.toString())
 
+            transRequestBody.folderId = "b1gdreu1lvbb8dm0pdq7"
+            transRequestBody.texts = str
+            transRequestBody.targetLanguageCode = "ru"
+
+            val json = Json
+            val requestBody = json.encodeToString(transRequestBody).toRequestBody()
+
+            Log.i("Trans_RDF_Body", requestBody.toString())
+
+
+
+            CoroutineScope(Dispatchers.Main).launch {
+                Log.i("REQUEST", requestBody.toString())
+                val def = async {
+                    recipesViewModel.translate("Bearer ${keyTrans?.key}", requestBody)
+                }
+                val result = def.await()
+                Log.i("Trans_RDF", result.toString())
+            }
+        }
 
 
     }
+
+
 }

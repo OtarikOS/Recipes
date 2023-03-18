@@ -4,6 +4,7 @@ import com.koshkin.recipes.domain.entity.Recipes
 import  com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.entity.Translate
 import okhttp3.RequestBody
 
 interface RecipesRepository {
@@ -14,4 +15,6 @@ interface RecipesRepository {
     suspend fun postRecipe(requestBody: RequestBody): Int
 
     suspend fun getKey():KeyTrans
+
+    suspend fun translate(authorizationKey: String,requestBody: RequestBody):Translate
 }

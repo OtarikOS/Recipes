@@ -41,7 +41,8 @@ class RecipesFragment : Fragment() {
             ((requireActivity().application) as App).getRemoteRecipes,
             ((requireActivity().application) as App).getRecipeInfo,
             ((requireActivity().application) as App).postRecipe,
-            ((requireActivity().application) as App).getKey
+            ((requireActivity().application) as App).getKey,
+            ((requireActivity().application) as App).getTranslate
         )
     }
 
