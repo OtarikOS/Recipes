@@ -1,5 +1,6 @@
 package com.koshkin.recipes.presentation.screen
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,11 +13,18 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.koshkin.recipes.App
 import com.koshkin.recipes.R
+import com.koshkin.recipes.data.repositories.LocalDataSourceImp
+import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.databinding.FragmentRecipesBinding
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.repositories.RecipesRepository
+import com.koshkin.recipes.domain.usecases.GetRecipeInfo
+import com.koshkin.recipes.domain.usecases.SaveAllRecipes
 import com.koshkin.recipes.presentation.MAIN
 import com.koshkin.recipes.presentation.RecipesAdapter
 import com.koshkin.recipes.presentation.RecipesViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
@@ -42,10 +50,26 @@ class RecipesFragment : Fragment() {
             ((requireActivity().application) as App).getRecipeInfo,
             ((requireActivity().application) as App).postRecipe,
             ((requireActivity().application) as App).getKey,
-            ((requireActivity().application) as App).getTranslate
+            ((requireActivity().application) as App).getTranslate,
+            ((requireActivity().application) as App).deleteAll,
+            ((requireActivity().application) as App).getSavedRecipes,
+            ((requireActivity().application) as App).saveAllRecipes
         )
     }
 
+    override fun onPause() {
+        super.onPause()
+        CoroutineScope(Dispatchers.IO).launch {
+            val job = launch {
+                recipesViewModel.deleteAll()
+                recipesViewModel.saveAllRecipes(recipesViewModel.recipeDb)
+            }
+            job.join()
+            Log.i("RF_onPause", recipesViewModel.recipeDb.toString())
+        }
+    }
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         recipesAdapter =
@@ -85,8 +109,16 @@ class RecipesFragment : Fragment() {
                 }
 
             })
+        CoroutineScope(Dispatchers.IO).launch {
+            val job = launch {
+                recipesViewModel.getSavedRecipes()
+            }
+            job.join()
+            Log.i("RF_getFromDb", recipesViewModel.remoteRecipes.toString())
 
-        recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
+            if (recipesViewModel.remoteRecipes.isEmpty())
+            recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
+        }
     }
 
     override fun onCreateView(

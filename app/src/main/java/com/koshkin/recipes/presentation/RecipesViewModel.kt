@@ -17,7 +17,10 @@ class RecipesViewModel(
     private val getRemoteRecipes: GetRemoteRecipes,
     private val postRecipe: PostRecipe,
     private val getKey: GetKey,
-    private val getTranslate: GetTranslate
+    private val getTranslate: GetTranslate,
+    private val deleteAll: DeleteAll,
+    private val getSavedRecipes: GetSavedRecipes,
+    private val savedRecipes: SaveAllRecipes
 ) :ViewModel(){
 
 
@@ -38,7 +41,8 @@ class RecipesViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private val _remoteRecipes = arrayListOf<RecipesForFragment>()
+     var remoteRecipes = arrayListOf<RecipesForFragment>()
+    val recipeDb = remoteRecipes
 
      var remoteRecipeInfo:Results? =null
 
@@ -49,12 +53,12 @@ class RecipesViewModel(
             when(val recipesResult = getRemoteRecipes.invoke(from,size,tag,ingredient)){
                 is Result.Success ->{
                 //    _remoteRecipes.clear()
-                    _remoteRecipes.addAll(recipesResult.data)
+                    remoteRecipes.addAll(recipesResult.data)
 
-                    recipes.value =_remoteRecipes     //TODO сделать через мапер энтити презентейшн
+                    recipes.value =remoteRecipes     //TODO сделать через мапер энтити презентейшн
                     _dataLoading.postValue(false)
 
-                    if(_remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
+                    if(remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
                         _allowRequest.postValue(false)
                 }
 
@@ -123,13 +127,39 @@ class RecipesViewModel(
         return  deferred.await()
     }
 
+    suspend fun deleteAll(){
+        val job = viewModelScope.launch{
+            deleteAll.invoke()
+        }
+        job.join()
+    }
+
+    suspend fun getSavedRecipes(): List<RecipesForFragment>{
+        val def = viewModelScope.async{
+            getSavedRecipes.invoke()
+        }
+        remoteRecipes = def.await() as ArrayList<RecipesForFragment>
+        Log.i("RVM_getSaved",remoteRecipes.toString())
+        return remoteRecipes
+    }
+
+    suspend fun saveAllRecipes(recipes: List<RecipesForFragment>){
+        val job = viewModelScope.launch{
+            savedRecipes.invoke(recipes)
+        }
+        job.join()
+    }
+
 
     class RecipesViewModelFactory(
         private val getRemoteRecipes: GetRemoteRecipes,
         private val getRecipeInfo: GetRecipeInfo,
         private val postRecipe: PostRecipe,
-        private var getKey: GetKey,
-        private val getTranslate: GetTranslate
+        private val getKey: GetKey,
+        private val getTranslate: GetTranslate,
+        private val deleteAll: DeleteAll,
+        private val getSavedRecipes: GetSavedRecipes,
+        private val savedRecipes: SaveAllRecipes
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
@@ -139,7 +169,8 @@ class RecipesViewModel(
                 getRemoteRecipes,
                 postRecipe,
                 getKey,
-                getTranslate
+                getTranslate,
+                deleteAll, getSavedRecipes, savedRecipes
             ) as T
         }
     }

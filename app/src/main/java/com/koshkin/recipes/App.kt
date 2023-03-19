@@ -24,4 +24,13 @@ class App: Application() {
 
     val getTranslate: GetTranslate
         get() = GetTranslate(recipesRepository)
+
+    val deleteAll:DeleteAll
+    get() = DeleteAll(recipesRepository)
+
+    val getSavedRecipes: GetSavedRecipes
+    get() = GetSavedRecipes(recipesRepository)
+
+    val saveAllRecipes: SaveAllRecipes
+    get() = SaveAllRecipes(recipesRepository)
 }

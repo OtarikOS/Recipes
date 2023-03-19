@@ -12,4 +12,7 @@ interface RecipesDao {
     @Query("DELETE from screen")
     suspend fun  deleteAll()
 
+    @Query("SELECT * FROM screen")
+    suspend fun getAll(): List<ScreenDb>
+
 }

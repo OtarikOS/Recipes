@@ -8,8 +8,16 @@ import com.koshkin.recipes.domain.entity.Translate
 import com.koshkin.recipes.domain.repositories.RecipesRepository
 import okhttp3.RequestBody
 
-class RecipesRepositoryImpl(private val remoteDataSource: RecipesRemoteDataSource):RecipesRepository {
-    override suspend fun getRemoteRecipes(from: Int,size: Int,tag: String?, ingredient: String?): Result<List<RecipesForFragment>> {
+class RecipesRepositoryImpl(
+    private val remoteDataSource: RecipesRemoteDataSource,
+    private val localDataSource: LocalDataSource
+) : RecipesRepository {
+    override suspend fun getRemoteRecipes(
+        from: Int,
+        size: Int,
+        tag: String?,
+        ingredient: String?
+    ): Result<List<RecipesForFragment>> {
         return remoteDataSource.getRecipes(from, size, tag, ingredient)
     }
 
@@ -23,11 +31,23 @@ class RecipesRepositoryImpl(private val remoteDataSource: RecipesRemoteDataSourc
     }
 
     override suspend fun getKey(): KeyTrans {
-        return  remoteDataSource.getKey()
+        return remoteDataSource.getKey()
     }
 
-    override suspend fun translate(authorizationKey: String,requestBody: RequestBody):Translate {
+    override suspend fun translate(authorizationKey: String, requestBody: RequestBody): Translate {
         return remoteDataSource.translate(authorizationKey, requestBody)
+    }
+
+    override suspend fun saveAll(recipes: List<RecipesForFragment>) {
+        return localDataSource.saveAll(recipes)
+    }
+
+    override suspend fun deleteAll() {
+        return localDataSource.deleteAll()
+    }
+
+    override suspend fun getAll(): List<RecipesForFragment> {
+        return localDataSource.getAll()
     }
 
 }

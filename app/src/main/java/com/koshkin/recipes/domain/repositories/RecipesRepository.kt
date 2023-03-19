@@ -17,4 +17,10 @@ interface RecipesRepository {
     suspend fun getKey():KeyTrans
 
     suspend fun translate(authorizationKey: String,requestBody: RequestBody):Translate
+
+    suspend fun saveAll(recipes: List<RecipesForFragment>)
+
+    suspend fun deleteAll()
+
+    suspend fun getAll():List<RecipesForFragment>
 }
