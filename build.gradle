@@ -40,7 +40,7 @@ ext {
     okhttp_version = '4.9.0'
     okhttp_logging_iterceptor_version = '3.12.1'
     retrofit_moshi_converter_version = '2.9.0'
-    room_version = '2.3.0'
+    room_version = '2.5.0'
     nav_version = '2.3.0'
     retrofit_version = '2.9.0'
 

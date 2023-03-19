@@ -1,13 +1,8 @@
 package com.koshkin.recipes.presentation
 
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.lifecycle.*
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.koshkin.recipes.R
+import com.koshkin.recipes.domain.entity.RecipesForFragment
 import com.koshkin.recipes.domain.entity.Results
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
@@ -15,10 +10,7 @@ import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Translate
 import com.koshkin.recipes.domain.usecases.*
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import okhttp3.RequestBody
-import java.text.SimpleDateFormat
-import java.util.*
 
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
@@ -35,7 +27,7 @@ class RecipesViewModel(
     private val _allowRequest = MutableLiveData(true)
     val allowRequest: LiveData<Boolean> = _allowRequest
 
-    private val _recipes = MutableLiveData<List<Results>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
+    private val _recipes = MutableLiveData<List<RecipesForFragment>>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     val recipes = _recipes
 
     //private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
@@ -46,7 +38,7 @@ class RecipesViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-    private val _remoteRecipes = arrayListOf<Results>()
+    private val _remoteRecipes = arrayListOf<RecipesForFragment>()
 
      var remoteRecipeInfo:Results? =null
 

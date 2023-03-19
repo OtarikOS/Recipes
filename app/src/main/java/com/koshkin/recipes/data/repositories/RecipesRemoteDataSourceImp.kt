@@ -1,10 +1,8 @@
 package com.koshkin.recipes.data.repositories
 
 import android.util.Log
-import android.widget.Toast
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonParser
 import com.koshkin.recipes.data.api.RecipesAPI
+import com.koshkin.recipes.domain.entity.RecipesForFragment
 import com.koshkin.recipes.data.mappers.RecipesApiResponseMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -12,11 +10,7 @@ import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.entity.Translate
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromJsonElement
 import okhttp3.RequestBody
-import retrofit2.Response
 
 class RecipesRemoteDataSourceImp(
     private val service: RecipesAPI,
@@ -27,12 +21,12 @@ class RecipesRemoteDataSourceImp(
         size: Int,
         tag: String?,
         ingredient: String?
-    ): Result<List<Results>> =
+    ): Result<List<RecipesForFragment>> =
         withContext(Dispatchers.IO) {
             try {
                 val response = service.getListRecipes(from, size, tag, ingredient)
                 if (response.isSuccessful) {
-                    return@withContext Result.Success(mapper.responseToResults(response.body()!!))
+                    return@withContext Result.Success(mapper.toScreenDb(response.body()!!))
                 } else {
                     return@withContext Result.Error(Exception(response.message()))
                 }

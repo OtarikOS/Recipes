@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
-import com.koshkin.recipes.domain.entity.Results
-import kotlinx.serialization.encodeToString
+import com.koshkin.recipes.domain.entity.RecipesForFragment
 import kotlinx.serialization.json.Json
 
 class RecipesAdapter(
@@ -22,7 +21,7 @@ class RecipesAdapter(
 
 
 
-    private val recipes: ArrayList<Results> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
+    private val recipes: ArrayList<RecipesForFragment> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
 
 
     override fun getItemCount(): Int {
@@ -45,7 +44,7 @@ class RecipesAdapter(
         if (position ==recipes.size-10)
             listener.addRecipes(31,20,null,null)
         recipes[position].also { recipe ->
-            recipe.thumbnailUrl?.let { imageUrl ->
+            recipe.imageUrl?.let { imageUrl ->
                 Glide.with(context)
                     .load(imageUrl)
                     .into(holder.ivRecipeCover)
@@ -62,13 +61,13 @@ class RecipesAdapter(
 
         holder.ivRecipeCover.setOnClickListener{
             val json=Json
-            if(recipes[position].nutrition?.calories ==null){
+          //  if(recipes[position].nutrition?.calories ==null){
                 listener.moreInfo(recipes[position].id.toString())
-            }else {
-                val str = json.encodeToString(recipes[position])
-                Log.i("RADAP", str)
-                listener.moreInfo(str)
-            }
+//            }else {
+//                val str = json.encodeToString(recipes[position])
+//                Log.i("RADAP", str)
+//                listener.moreInfo(str)
+//            }
         }
     }
 
@@ -78,7 +77,7 @@ class RecipesAdapter(
         val ivRecipeCover: ImageView = view.findViewById(R.id.ivRecipeCover)
     }
 
-    fun submitUpdate(update: List<Results>) {    //TODO сделать "энтити" для презентэйшн и переписать
+    fun submitUpdate(update: List<RecipesForFragment>) {    //TODO сделать "энтити" для презентэйшн и переписать
         val callback = RecipesDiffCallback(recipes, update)
         val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(callback)
 
@@ -89,8 +88,8 @@ class RecipesAdapter(
 
 
     class RecipesDiffCallback(
-        private val oldRecipes: List<Results>,             //TODO сделать "энтити" для презентэйшн и переписать
-        private val newRecipes: List<Results>           //TODO сделать "энтити" для презентэйшн и переписать
+        private val oldRecipes: List<RecipesForFragment>,             //TODO сделать "энтити" для презентэйшн и переписать
+        private val newRecipes: List<RecipesForFragment>           //TODO сделать "энтити" для презентэйшн и переписать
     ) :
         DiffUtil.Callback() {
         override fun getOldListSize(): Int {

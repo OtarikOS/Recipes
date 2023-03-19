@@ -1,8 +1,8 @@
 package com.koshkin.recipes.data.mappers
 
-import com.koshkin.recipes.data.api.InstructionsApi
 import com.koshkin.recipes.data.api.RecipesApiResponse
 import com.koshkin.recipes.data.api.ResultsApi
+import com.koshkin.recipes.domain.entity.RecipesForFragment
 import com.koshkin.recipes.domain.entity.*
 
 class RecipesApiResponseMapper {
@@ -168,5 +168,15 @@ class RecipesApiResponseMapper {
             name = resultsApi.name,
             thumbnailUrl = resultsApi.thumbnailUrl
         )
+    }
+
+    fun toScreenDb(response: RecipesApiResponse): List<RecipesForFragment> {
+        return response.results.map {
+            RecipesForFragment(
+                it.id,
+                it.name,
+                it.thumbnailUrl
+            )
+        }
     }
 }

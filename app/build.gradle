@@ -103,9 +103,9 @@ dependencies {
     // from data
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     // Room for data persistence
-    api "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    //   implementation "androidx.room:room-coroutines:$room_version"
+    //   implementation "androidx.room:room-coroutines:2.5.0"
 
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"
