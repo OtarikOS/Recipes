@@ -143,9 +143,10 @@ class RecipesViewModel(
         _remoteRecipes = def.await() as ArrayList<RecipesForFragment>
         Log.i("RVM_getSaved",_remoteRecipes.toString())
         recipes.postValue(_remoteRecipes)
-        Log.i("RVM_getSaved",recipes.value.toString())
+
         recipeDb = _remoteRecipes
         if (recipeDb.size>0){
+            Log.i("RVM_getSaved",recipeDb.toString())
             _dataLoading.postValue(false)
         }
         return recipeDb

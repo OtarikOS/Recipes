@@ -13,6 +13,7 @@ class ScreenDbMapper {
                 it.id,
                 it.name,
                 it.imageUrl,
+                idDb = 0
             )
         }
     }

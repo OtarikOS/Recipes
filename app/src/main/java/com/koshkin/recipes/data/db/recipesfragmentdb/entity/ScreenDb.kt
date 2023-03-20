@@ -6,8 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "screen")
 data class ScreenDb(
-    @PrimaryKey
     val id: Int?,
     val name: String?,
-    val imageUrl:String?
+    val imageUrl:String?,
+    @PrimaryKey(autoGenerate = true)
+    val idDb: Int
 )
