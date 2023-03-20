@@ -24,7 +24,8 @@ abstract class ScreenDataBase: RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,ScreenDataBase::class.java,
                     ScreenDataBase::class.simpleName!!
-                ).build()
+                ).allowMainThreadQueries()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

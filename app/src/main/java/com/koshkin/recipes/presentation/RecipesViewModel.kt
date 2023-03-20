@@ -24,7 +24,7 @@ class RecipesViewModel(
 ) :ViewModel(){
 
 
-    private val _dataLoading = MutableLiveData(true)
+    private val _dataLoading = MutableLiveData(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
     private val _allowRequest = MutableLiveData(true)
@@ -41,8 +41,8 @@ class RecipesViewModel(
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
-     var remoteRecipes = arrayListOf<RecipesForFragment>()
-    val recipeDb = remoteRecipes
+    private var _remoteRecipes = arrayListOf<RecipesForFragment>()
+    var recipeDb = _remoteRecipes
 
      var remoteRecipeInfo:Results? =null
 
@@ -53,12 +53,13 @@ class RecipesViewModel(
             when(val recipesResult = getRemoteRecipes.invoke(from,size,tag,ingredient)){
                 is Result.Success ->{
                 //    _remoteRecipes.clear()
-                    remoteRecipes.addAll(recipesResult.data)
+                    _remoteRecipes.addAll(recipesResult.data)
 
-                    recipes.value =remoteRecipes     //TODO сделать через мапер энтити презентейшн
+                    recipes.value = _remoteRecipes     //TODO сделать через мапер энтити презентейшн
+                    recipeDb = _remoteRecipes
                     _dataLoading.postValue(false)
 
-                    if(remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
+                    if(_remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
                         _allowRequest.postValue(false)
                 }
 
@@ -136,11 +137,18 @@ class RecipesViewModel(
 
     suspend fun getSavedRecipes(): List<RecipesForFragment>{
         val def = viewModelScope.async{
+            _dataLoading.postValue(true)
             getSavedRecipes.invoke()
         }
-        remoteRecipes = def.await() as ArrayList<RecipesForFragment>
-        Log.i("RVM_getSaved",remoteRecipes.toString())
-        return remoteRecipes
+        _remoteRecipes = def.await() as ArrayList<RecipesForFragment>
+        Log.i("RVM_getSaved",_remoteRecipes.toString())
+        recipes.postValue(_remoteRecipes)
+        Log.i("RVM_getSaved",recipes.value.toString())
+        recipeDb = _remoteRecipes
+        if (recipeDb.size>0){
+            _dataLoading.postValue(false)
+        }
+        return recipeDb
     }
 
     suspend fun saveAllRecipes(recipes: List<RecipesForFragment>){

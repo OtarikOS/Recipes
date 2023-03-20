@@ -2,6 +2,9 @@ package com.koshkin.recipes.data.mappers
 
 import com.koshkin.recipes.data.db.recipesfragmentdb.entity.ScreenDb
 import com.koshkin.recipes.domain.entity.RecipesForFragment
+import java.sql.Time
+import java.time.LocalDate
+import java.util.Date
 
 class ScreenDbMapper {
     fun toScreenDb(input: List<RecipesForFragment>): List<ScreenDb>{
@@ -9,7 +12,7 @@ class ScreenDbMapper {
             ScreenDb(
                 it.id,
                 it.name,
-                it.imageUrl
+                it.imageUrl,
             )
         }
     }

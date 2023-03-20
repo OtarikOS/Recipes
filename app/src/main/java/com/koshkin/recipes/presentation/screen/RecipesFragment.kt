@@ -61,11 +61,12 @@ class RecipesFragment : Fragment() {
         super.onPause()
         CoroutineScope(Dispatchers.IO).launch {
             val job = launch {
+     //           Log.i("RF_onPause_launch", recipesViewModel.recipe.toString())
                 recipesViewModel.deleteAll()
                 recipesViewModel.saveAllRecipes(recipesViewModel.recipeDb)
             }
             job.join()
-            Log.i("RF_onPause", recipesViewModel.recipeDb.toString())
+            Log.i("RF_onPause", recipesViewModel.recipeDb.size.toString())
         }
     }
 
@@ -114,10 +115,13 @@ class RecipesFragment : Fragment() {
                 recipesViewModel.getSavedRecipes()
             }
             job.join()
-            Log.i("RF_getFromDb", recipesViewModel.remoteRecipes.toString())
+            Log.i("RF_getFromDb", recipesViewModel.recipes.value.toString())
 
-            if (recipesViewModel.remoteRecipes.isEmpty())
-            recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
+            if (recipesViewModel.recipeDb.isEmpty()) {
+                recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
+            }else{
+                statePosition = recipesViewModel.recipeDb.size
+            }
         }
     }
 
