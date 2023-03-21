@@ -78,16 +78,15 @@ class RecipeInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.tvButton.setOnClickListener {
-
-
-
-            val bundle=Bundle()
-            bundle.putString("recipe",recipe)
-  //          bundle.putInt("Id",recipeRead?.id!!)
-            Log.i("RIF",recipeRead?.id!!.toString())
-            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
-        }
+//        binding.tvButton.setOnClickListener {
+//
+//
+//
+//            val bundle=Bundle()
+//            bundle.putString("recipe",recipe)
+//            Log.i("RIF",recipeRead?.id!!.toString())
+//            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
+//        }
 
         binding.nutritionLinearLayout.setOnClickListener{
             if(binding.nutritionTableInfo.visibility==View.GONE){

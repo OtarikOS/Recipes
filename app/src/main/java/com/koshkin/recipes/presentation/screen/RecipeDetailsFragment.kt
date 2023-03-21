@@ -72,6 +72,8 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
     private var transRequestBody:TransRequestBody = TransRequestBody()
 
+    private var strRecipe:String? = null
+
    // private val postRecipe: PostRecipe
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,39 +102,49 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    //    recipesViewModel.getInfoRecipe(idRecipe!!)
-        binding.button.setOnClickListener{
-            var result:Int? = null
-//            val jsonObject = JSONObject()
-//            jsonObject.put("id",recipeRead!!.id)
-//
-//            Log.i("POST_RDF", recipeRead!!.id.toString())
-
-            val requestBody = recipe!!.toRequestBody("application/json".toMediaTypeOrNull())
-            CoroutineScope(Dispatchers.Main).launch {
-                Log.i("REQUEST", requestBody.toString())
-                val def = async {
-                    recipesViewModel.postRecipe(requestBody)
-                }
-                result = def.await()
+        binding.button.setOnClickListener {
 
 
-                Log.i("As_RDF", result.toString())
-                var message: Int? = null
-                if (result == 200)
-                    message = R.string.toast_200
-                if (result == 500)
-                    message = R.string.toast_500
-                if (result == 229)
-                    message = R.string.toast_gut
-                if (result == 470)
-                    message = R.string.toast_nodb
-                if (result == 477)
-                    message = R.string.toast_exists
 
-                Toast.makeText(context, message!!, Toast.LENGTH_SHORT).show()
-            }
+            val bundle=Bundle()
+            bundle.putString("recipe",strRecipe)
+            Log.i("RIF",recipeRead?.id!!.toString())
+            MAIN.navController.navigate(R.id.action_recipeDetailsFragment_to_recipeInfoFragment,bundle)
         }
+
+    //    recipesViewModel.getInfoRecipe(idRecipe!!)
+//        binding.button.setOnClickListener{
+//            var result:Int? = null
+////            val jsonObject = JSONObject()
+////            jsonObject.put("id",recipeRead!!.id)
+////
+////            Log.i("POST_RDF", recipeRead!!.id.toString())
+//
+//            val requestBody = recipe!!.toRequestBody("application/json".toMediaTypeOrNull())
+//            CoroutineScope(Dispatchers.Main).launch {
+//                Log.i("REQUEST", requestBody.toString())
+//                val def = async {
+//                    recipesViewModel.postRecipe(requestBody)
+//                }
+//                result = def.await()
+//
+//
+//                Log.i("As_RDF", result.toString())
+//                var message: Int? = null
+//                if (result == 200)
+//                    message = R.string.toast_200
+//                if (result == 500)
+//                    message = R.string.toast_500
+//                if (result == 229)
+//                    message = R.string.toast_gut
+//                if (result == 470)
+//                    message = R.string.toast_nodb
+//                if (result == 477)
+//                    message = R.string.toast_exists
+//
+//                Toast.makeText(context, message!!, Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
 
 
@@ -195,6 +207,9 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
                 converter.fromBodyResponse(result.translations,recipeRead!!)
                 Log.i("Trans_RDF", recipeRead.toString())
                 binding.tvR.text = recipeRead?.name
+
+            //    val json = Json
+                strRecipe = json.encodeToString(recipeRead)
             }
         }
 

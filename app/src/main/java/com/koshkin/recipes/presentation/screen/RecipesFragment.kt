@@ -92,7 +92,7 @@ class RecipesFragment : Fragment() {
                         }
                         job.join()
                         MAIN.navController.navigate(
-                            R.id.action_forecastFragment_to_recipeInfoFragment,
+                            R.id.action_forecastFragment_to_recipeDetailsFragment,
                             bundle
                         )
                     }
