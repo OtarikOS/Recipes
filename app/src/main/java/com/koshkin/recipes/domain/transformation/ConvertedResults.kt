@@ -1,6 +1,7 @@
 package com.koshkin.recipes.domain.transformation
 
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.entity.Translations
 import java.util.regex.Pattern
 
 class ConvertedResults(private val results: Results) {
@@ -92,7 +93,14 @@ class ConvertedResults(private val results: Results) {
 
     }
 
-    fun fromBodyResponse(response: ArrayList<String>, results: Results) {
+    fun fromBodyResponse(translations: List<Translations>, results: Results) {
+        var response:List<String?> =
+        translations.map {
+           String
+          (
+            it.text
+            )
+        }
 
         var position: Int = 0
 

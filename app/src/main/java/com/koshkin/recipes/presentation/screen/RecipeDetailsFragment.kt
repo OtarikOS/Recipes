@@ -31,6 +31,7 @@ import org.json.JSONObject
 import retrofit2.http.Header
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.TransRequestBody
+import com.koshkin.recipes.presentation.MAIN
 import kotlinx.serialization.encodeToString
 import java.util.prefs.Preferences
 
@@ -52,7 +53,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
     private var keyTrans: KeyTrans? = null
 
-    private var sPref: SharedPreferences = this.requireActivity().getPreferences(Context.MODE_PRIVATE)
+    private var sPref: SharedPreferences = MAIN.getPreferences(Context.MODE_PRIVATE)
     private val editor:SharedPreferences.Editor = sPref.edit()
 
     private lateinit var converter: ConvertedResults
@@ -152,7 +153,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 //         })
 
         binding.btnKey.setOnClickListener{
-            CoroutineScope(Dispatchers.IO).launch{
+            CoroutineScope(Dispatchers.Main).launch{
                 val def =async {
                     recipesViewModel.getKey()
                 }
@@ -191,6 +192,9 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
                 }
                 val result = def.await()
                 Log.i("Trans_RDF", result.toString())
+                converter.fromBodyResponse(result.translations,recipeRead!!)
+                Log.i("Trans_RDF", recipeRead.toString())
+                binding.tvR.text = recipeRead?.name
             }
         }
 
