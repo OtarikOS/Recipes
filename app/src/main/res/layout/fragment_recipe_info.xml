@@ -40,12 +40,14 @@
                 app:shapeAppearanceOverlay="@style/roundedImageView"
                 tools:src="@tools:sample/backgrounds/scenic" />
 
-            <TextView
+            <EditText
                 android:id="@+id/info_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="tv_info_description"
                 android:visibility="gone"
+                android:inputType="textMultiLine"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -76,18 +78,20 @@
                 app:layout_constraintTop_toTopOf="@+id/ivRecipeInfo"
                 app:layout_constraintVertical_bias="0.14" />
 
-            <TextView
+            <EditText
                 android:id="@+id/info_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
                 android:text="TextView"
+                android:inputType="textMultiLine"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <EditText
                 android:id="@+id/info_description_16_9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,6 +99,9 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="28dp"
                 android:text="TextView"
+                android:inputType="textMultiLine"
+                android:textSize="24sp"
+                android:textColor="#FF03DAC5"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/ivRecipeInfo"
                 app:layout_constraintEnd_toEndOf="@id/ivRecipeInfo"
@@ -109,17 +116,20 @@
                 android:paddingStart="28dp"
                 android:paddingEnd="28dp"
                 android:text="@string/components"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nutrition_table_info"
                 tools:layout_editor_absoluteY="395dp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_section_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView 6"
                 android:visibility="visible"
+                android:inputType="textMultiLine"
+                android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent" />
@@ -171,7 +181,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:text="@string/nutrition" />
+                    android:text="@string/nutrition"
+                    android:textSize="14sp"/>
 
 
             </LinearLayout>

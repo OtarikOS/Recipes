@@ -15,14 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="8"
-
+            android:textSize="14sp"
 
             android:text="TextView" />
 
-        <TextView
+        <EditText
             android:id="@+id/list_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="TextView" />
+            android:text="TextView"
+            android:inputType="textMultiLine"
+            android:textSize="24sp"/>
     </LinearLayout>

@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
+import com.koshkin.recipes.domain.transformation.EditorRecipe
 import com.koshkin.recipes.presentation.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -41,6 +42,8 @@ class RecipeInfoFragment : Fragment() {
     private lateinit var binding: FragmentRecipeInfoBinding
 
     private var changeConstraint: ConstraintSet? =null
+
+    private  var editorRecipe: EditorRecipe? = null
 
 
 
@@ -105,14 +108,16 @@ class RecipeInfoFragment : Fragment() {
                 .into(binding.ivRecipeInfo)
         }
 
-        binding.infoName.text =recipeRead?.name
+       // binding.infoName.setText(recipeRead?.name)
+        editorRecipe = EditorRecipe(binding.infoName,recipeRead?.name.toString())
+        editorRecipe!!.edition(recipeRead?.name.toString())
 
         if(recipeRead?.aspectRatio.toString().equals("9:16")){
             binding.infoDescription169.visibility = View.VISIBLE
-            binding.infoDescription169.text = recipeRead?.description
+            binding.infoDescription169.setText(recipeRead?.description)
         } else if(recipeRead?.aspectRatio!=null){
             binding.infoDescription.visibility = View.VISIBLE
-            binding.infoDescription.text = recipeRead?.description
+            binding.infoDescription.setText(recipeRead?.description)
         }
 
         for(i in 0 until recipeRead!!.instructions.size){
@@ -146,3 +151,4 @@ class RecipeInfoFragment : Fragment() {
 
 
 }
+
