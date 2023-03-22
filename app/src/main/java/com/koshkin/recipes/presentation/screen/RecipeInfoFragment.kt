@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
@@ -20,9 +21,14 @@ import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.transformation.EditorRecipe
 import com.koshkin.recipes.presentation.*
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.RequestBody.Companion.toRequestBody
 
 
 private const val ARG_PARAM = "recipe"
@@ -90,6 +96,44 @@ class RecipeInfoFragment : Fragment() {
 //            Log.i("RIF",recipeRead?.id!!.toString())
 //            MAIN.navController.navigate(R.id.action_recipeInfoFragment_to_recipeDetailsFragment,bundle)
 //        }
+//                                       // Отправка
+                binding.tvButton.setOnClickListener{
+            var result:Int? = null
+//            val jsonObject = JSONObject()
+//            jsonObject.put("id",recipeRead!!.id)
+//
+//            Log.i("POST_RDF", recipeRead!!.id.toString())
+                    val json = Json
+                    recipe =json.encodeToString(recipeRead)
+
+            val requestBody = recipe!!.toRequestBody("application/json".toMediaTypeOrNull())
+            CoroutineScope(Dispatchers.Main).launch {
+                Log.i("REQUEST", requestBody.toString())
+                val def = async {
+                    recipesViewModel.postRecipe(requestBody)
+                }
+                result = def.await()
+
+
+                Log.i("As_RDF", result.toString())
+                var message: Int? = null
+                if (result == 200)
+                    message = R.string.toast_200
+                if (result == 500)
+                    message = R.string.toast_500
+                if (result == 229)
+                    message = R.string.toast_gut
+                if (result == 470)
+                    message = R.string.toast_nodb
+                if (result == 477)
+                    message = R.string.toast_exists
+
+                Toast.makeText(context, message!!, Toast.LENGTH_SHORT).show()
+                Log.i("RIF_json",recipe!!)
+            }
+                    Log.i("RIF_json",recipe!!)
+        }
+
 
         binding.nutritionLinearLayout.setOnClickListener{
             if(binding.nutritionTableInfo.visibility==View.GONE){

@@ -111,7 +111,7 @@ class ConvertedResults(private val results: Results) {
             } else if (response[position].equals("8888")) {
                 position++
             } else {
-                results.topics[position_t].name = ""
+                results.topics[position_t].name = "77779"
                 position++
             }
         }
@@ -120,13 +120,13 @@ class ConvertedResults(private val results: Results) {
             results.yields = response[position]
             position++
         } else {
-            results.yields = ""
+            results.yields = "77779"
             position++
         }
 
         for (position_sect: Int in 0..results.sections.size) {
             if (response[position].equals("7777")) {
-                results.sections[position_sect].name = null
+                results.sections[position_sect].name = "HHH"
                 position++
             } else if (response[position].equals("8888")) {
                 position++

@@ -72,6 +72,7 @@ class RecipesRemoteDataSourceImp(
                 } else {
                     Log.i("res_RRDS_else",response.errorBody().toString())
                    // return@withContext Result.Error(Exception(response.message()))
+                    Log.i("res_RRDS_else",response.message())
 
                     result =response.code()
                 }
