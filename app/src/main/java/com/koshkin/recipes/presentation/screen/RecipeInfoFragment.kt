@@ -131,7 +131,7 @@ class RecipeInfoFragment : Fragment() {
                 Toast.makeText(context, message!!, Toast.LENGTH_SHORT).show()
                 Log.i("RIF_json",recipe!!)
             }
-                    Log.i("RIF_json",recipe!!)
+                    Log.i("RIF_json_2",recipe!!)
         }
 
 

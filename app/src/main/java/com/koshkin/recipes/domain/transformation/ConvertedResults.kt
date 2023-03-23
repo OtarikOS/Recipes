@@ -18,11 +18,20 @@ class ConvertedResults(private val results: Results) {
 
     }
 
+    /**
+     * "7777" - пустая строка
+     * "8888" - конец
+     */
+
     fun toArrayForRequest(): ArrayList<String> {
-        for (position: Int in 0 until results.topics.size) {
-            bodyResult.add(results.topics[position].name ?: "7777")
-            if (position == results.topics.size - 1) {
-                bodyResult.add("8888")
+        if(results.topics.size == 0){                     // TODO - сделать везде провеку длины
+            bodyResult.add("8888")
+        }else {
+            for (position: Int in 0 until results.topics.size) {
+                bodyResult.add(results.topics[position].name ?: "7777")
+                if (position == results.topics.size - 1) {
+                    bodyResult.add("8888")
+                }
             }
         }
         bodyResult.add(results.yields ?: "7777")
@@ -104,15 +113,21 @@ class ConvertedResults(private val results: Results) {
 
         var position: Int = 0
 
-        for (position_t: Int in 0..results.topics.size) {
-            if (!response[position].equals("7777") && !response[position].equals("8888")) {
-                results.topics[position_t].name = response[position]
-                position++
-            } else if (response[position].equals("8888")) {
-                position++
-            } else {
-                results.topics[position_t].name = "77779"
-                position++
+
+        if (response[position].equals("8888")) {
+            position++
+        } else {
+            for (position_t: Int in 0..results.topics.size) {
+                if (response[position].equals("8888")) {
+                    position++
+                }else
+                if (!response[position].equals("7777")) {
+                    results.topics[position_t].name = response[position]
+                    position++
+                } else  {
+                    results.topics[position_t].name = ""
+                    position++
+                }
             }
         }
 
