@@ -103,6 +103,7 @@ class RecipeInfoFragment : Fragment() {
 //            jsonObject.put("id",recipeRead!!.id)
 //
 //            Log.i("POST_RDF", recipeRead!!.id.toString())
+                    recipeRead!!.name =  editorRecipe!!.edition()
                     val json = Json
                     recipe =json.encodeToString(recipeRead)
 
@@ -152,9 +153,9 @@ class RecipeInfoFragment : Fragment() {
                 .into(binding.ivRecipeInfo)
         }
 
-       // binding.infoName.setText(recipeRead?.name)
+      //  binding.infoName.setText(recipeRead?.name)
         editorRecipe = EditorRecipe(binding.infoName,recipeRead?.name.toString())
-        editorRecipe!!.edition(recipeRead?.name.toString())
+        recipeRead!!.name =  editorRecipe!!.edition()
 
         if(recipeRead?.aspectRatio.toString().equals("9:16")){
             binding.infoDescription169.visibility = View.VISIBLE

@@ -12,13 +12,13 @@ interface RecipesAPI {
     val apiKey: String
         get() = BuildConfig.ApiKey
 
-    @GET("recipes/list?${BuildConfig.ApiKey3}&tag=under_30_minutes")
+    @GET("recipes/list?${BuildConfig.ApiKey}&tag=under_30_minutes")
     suspend fun getListRecipes(@Query("from") from: Int,
                                @Query("size") size: Int,
                                @Query("tags") tag:String?,
                                @Query("q") ingredient:String?): Response<RecipesApiResponse>
 
-    @GET("recipes/get-more-info?${BuildConfig.ApiKey3}")
+    @GET("recipes/get-more-info?${BuildConfig.ApiKey}")
     suspend fun getRecipeInfo(@Query("id") recipeID:Int):Response<ResultsApi>
 
   //  @Headers({"Accept: application/json"})
