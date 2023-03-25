@@ -1,7 +1,6 @@
-package com.koshkin.recipes.domain.entity
+package com.koshkin.recipes.data.api
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.serialization.Serializable
 
 
 //@Serializable

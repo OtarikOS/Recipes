@@ -4,6 +4,7 @@ import android.content.Context
 import com.koshkin.recipes.BuildConfig
 import com.koshkin.recipes.data.api.NetworkModule
 import com.koshkin.recipes.data.db.recipesfragmentdb.ScreenDataBase
+import com.koshkin.recipes.data.mappers.KeyMapper
 import com.koshkin.recipes.data.mappers.RecipesApiResponseMapper
 import com.koshkin.recipes.data.mappers.ScreenDbMapper
 import com.koshkin.recipes.data.repositories.LocalDataSource
@@ -36,7 +37,8 @@ object ServiceLocator {
             RecipesRepositoryImpl(
                 RecipesRemoteDataSourceImp(
                 networkModule.createRecipesApi(BuildConfig.TASTY_APIS_ENDPOINT),
-                RecipesApiResponseMapper()
+                RecipesApiResponseMapper(),
+                   KeyMapper()
                 ),
                 createLocalDataSource(context)
             )

@@ -1,7 +1,6 @@
 package com.koshkin.recipes.data.api
 
 import com.koshkin.recipes.BuildConfig
-import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Translate
 import okhttp3.RequestBody
 import okhttp3.ResponseBody

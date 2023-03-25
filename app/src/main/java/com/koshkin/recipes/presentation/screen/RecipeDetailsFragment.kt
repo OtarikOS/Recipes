@@ -15,7 +15,6 @@ import com.koshkin.recipes.R
 import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.databinding.FragmentRecipeDetailsBinding
-import com.koshkin.recipes.domain.entity.KeyTrans
 import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.transformation.ConvertedResults
 import com.koshkin.recipes.domain.usecases.PostRecipe
@@ -30,6 +29,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import org.json.JSONObject
 import retrofit2.http.Header
 import com.koshkin.recipes.domain.common.Result
+import com.koshkin.recipes.domain.entity.KeyT
 import com.koshkin.recipes.domain.entity.TransRequestBody
 import com.koshkin.recipes.presentation.MAIN
 import kotlinx.serialization.encodeToString
@@ -51,7 +51,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 
     private  var recipeRead: Results? = null
 
-    private var keyTrans: KeyTrans? = null
+    private var keyTrans: KeyT? = null
 
     private var sPref: SharedPreferences = MAIN.getPreferences(Context.MODE_PRIVATE)
     private val editor:SharedPreferences.Editor = sPref.edit()
@@ -165,23 +165,33 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
 //         })
 
         binding.btnKey.setOnClickListener{
+            binding.pbLoading2.visibility = View.VISIBLE
             CoroutineScope(Dispatchers.Main).launch{
                 val def =async {
                     recipesViewModel.getKey()
                 }
-                keyTrans = def.await()
-                Log.i("RDF_key",keyTrans?.key!!)
+                def.await()
+                keyTrans = recipesViewModel.keyTrans
+                binding.pbLoading2.visibility = View.GONE
+
                 if (keyTrans?.key!=null) {
+                    Log.i("RDF_key",keyTrans?.key!!)
                     editor.putString("key_translate", keyTrans?.key.toString())
                     editor.commit()
                     key = keyTrans?.key
                     Toast.makeText(context, "Ключ есть", Toast.LENGTH_SHORT).show()
+                }else {
+                    Toast.makeText(context, "Проблема с ключом", Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
     //    val body:RequestBody = RequestBody.create()
         binding.btnTrans.setOnClickListener {
+                //вспомогатель string временный вместо Result<out R>
+            val string = recipeRead?.name
+
+            binding.pbLoading2.visibility = View.VISIBLE
             converter = ConvertedResults(recipeRead!!)
             str = converter.toArrayForRequest()
             Log.i("RDF_convert", str.toString())
@@ -203,11 +213,15 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
                     recipesViewModel.translate("Bearer $key", requestBody)
                 }
                 val result = def.await()
+                binding.pbLoading2.visibility =View.GONE
                 Log.i("Trans_RDF", result.toString())
                 converter.fromBodyResponse(result.translations,recipeRead!!)
                 Log.i("Trans_RDF", recipeRead.toString())
-                binding.tvR.text = recipeRead?.name
-
+                if(!string.equals(recipeRead!!.name)) {
+                    binding.tvR.text = recipeRead?.name
+                }else {
+                    Toast.makeText(context,"Возможно ключ устарел",Toast.LENGTH_LONG).show()
+                }
             //    val json = Json
                 strRecipe = json.encodeToString(recipeRead)
             }

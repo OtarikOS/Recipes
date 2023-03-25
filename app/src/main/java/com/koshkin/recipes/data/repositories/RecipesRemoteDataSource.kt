@@ -1,10 +1,7 @@
 package com.koshkin.recipes.data.repositories
 
-import com.koshkin.recipes.domain.entity.RecipesForFragment
 import com.koshkin.recipes.domain.common.Result
-import com.koshkin.recipes.domain.entity.KeyTrans
-import com.koshkin.recipes.domain.entity.Results
-import com.koshkin.recipes.domain.entity.Translate
+import com.koshkin.recipes.domain.entity.*
 import okhttp3.RequestBody
 
 
@@ -15,7 +12,7 @@ interface RecipesRemoteDataSource {
 
     suspend fun postRecipe(requestBody: RequestBody): Int
 
-    suspend fun getKey(): KeyTrans
+    suspend fun getKey():Result<KeyT>
 
-    suspend fun translate(authorizationKey:String,requestBody: RequestBody):Translate
+    suspend fun translate(authorizationKey:String,requestBody: RequestBody): Translate
 }

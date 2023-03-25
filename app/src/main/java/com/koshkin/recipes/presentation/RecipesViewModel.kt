@@ -2,12 +2,9 @@ package com.koshkin.recipes.presentation
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.koshkin.recipes.domain.entity.RecipesForFragment
-import com.koshkin.recipes.domain.entity.Results
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
-import com.koshkin.recipes.domain.entity.KeyTrans
-import com.koshkin.recipes.domain.entity.Translate
+import com.koshkin.recipes.domain.entity.*
 import com.koshkin.recipes.domain.usecases.*
 import kotlinx.coroutines.async
 import okhttp3.RequestBody
@@ -36,7 +33,7 @@ class RecipesViewModel(
     //private val _oneRecipes = MutableLiveData<Results>() //TODO сделать "энтити" для презентэйшн и переписать _recipes
     var oneRecipes :Results? =null
 
-    var keyTrans: KeyTrans? = null
+    var keyTrans: KeyT? = null
 
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
@@ -104,21 +101,23 @@ class RecipesViewModel(
         return  deferred.await()
     }
 
-    suspend fun getKey():KeyTrans{
-       val def = viewModelScope.async {
-//           when(val keyResult =
-               getKey.invoke()
-//               is Result.Success ->{
-//                   keyTrans = keyResult.data
-//  //                 Log.i("RVM_key_success", keyResult.data.toString())
-//               }
-//               is Result.Error ->{
-//                   _error.postValue(keyResult.exception.message)
-//  //                 Log.i("RVM_ERR_key_error",keyResult.exception.message.toString())
-//               }
-//           }
-        }
-         return def.await()
+    suspend fun getKey(){
+       val def = viewModelScope.launch {
+           when (val keyResult =
+               getKey.invoke()) {
+               is Result.Success -> {
+                   keyTrans = keyResult.data as KeyT?
+                   //                 Log.i("RVM_key_success", keyResult.data.toString())
+               }
+               is Result.Error -> {
+                   _error.postValue(keyResult.exception.message)
+                                    Log.i("RVM_ERR_key_error",_error.toString())
+               }
+           }
+
+       }
+        def.join()
+      //  return keyTrans
     }
 
     suspend fun translate(authorizationKey:String ,requestBody: RequestBody): Translate{
