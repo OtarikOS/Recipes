@@ -6,19 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.net.toUri
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.koshkin.recipes.R
 import com.koshkin.recipes.databinding.FragmentRecipeInfoBinding
 import com.koshkin.recipes.domain.entity.Results
-import com.koshkin.recipes.domain.transformation.EditorRecipe
 import com.koshkin.recipes.presentation.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -49,7 +44,6 @@ class RecipeInfoFragment : Fragment() {
 
     private var changeConstraint: ConstraintSet? =null
 
-    private  var editorRecipe: EditorRecipe? = null
 
 
 
@@ -103,7 +97,26 @@ class RecipeInfoFragment : Fragment() {
 //            jsonObject.put("id",recipeRead!!.id)
 //
 //            Log.i("POST_RDF", recipeRead!!.id.toString())
-                    recipeRead!!.name =  editorRecipe!!.edition()
+
+                               // сохранение измененого названия
+
+                    recipeRead!!.name = binding.infoName.text.toString()
+
+                                           // сохранение описания
+
+                    if(recipeRead?.aspectRatio.toString().equals("9:16")){
+                        recipeRead!!.description = binding.infoDescription169.text.toString()
+                    } else if(recipeRead?.aspectRatio!=null){
+                        recipeRead!!.description = binding.infoDescription.text.toString()
+                    }
+
+                                    // сохранение инструкций
+
+                    for(i in 0 until recipeRead!!.instructions.size){
+                        recipeRead!!.instructions[i].displayText = content[i]
+                        //          contentCount.add((i+1).toString())
+                    }
+       //             recipeRead!!.name =  editorRecipe!!.edition()
                     val json = Json
                     recipe =json.encodeToString(recipeRead)
 
@@ -153,9 +166,9 @@ class RecipeInfoFragment : Fragment() {
                 .into(binding.ivRecipeInfo)
         }
 
-      //  binding.infoName.setText(recipeRead?.name)
-        editorRecipe = EditorRecipe(binding.infoName,recipeRead?.name.toString())
-        recipeRead!!.name =  editorRecipe!!.edition()
+        binding.infoName.setText(recipeRead?.name)
+     //   editorRecipe = EditorRecipe(binding.infoName,recipeRead?.name.toString())
+       // recipeRead!!.name =  editorRecipe!!.edition()
 
         if(recipeRead?.aspectRatio.toString().equals("9:16")){
             binding.infoDescription169.visibility = View.VISIBLE

@@ -141,7 +141,7 @@ class ConvertedResults(private val results: Results) {
 
         for (position_sect: Int in 0..results.sections.size) {
             if (response[position].equals("7777")) {
-                results.sections[position_sect].name = "HHH"
+                results.sections[position_sect].name = ""
                 position++
             } else if (response[position].equals("8888")) {
                 position++
