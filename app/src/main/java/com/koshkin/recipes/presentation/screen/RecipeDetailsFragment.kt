@@ -214,13 +214,18 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
                 }
                 val result = def.await()
                 binding.pbLoading2.visibility =View.GONE
-                Log.i("Trans_RDF", result.toString())
-                converter.fromBodyResponse(result.translations,recipeRead!!)
-                Log.i("Trans_RDF", recipeRead.toString())
-                if(!string.equals(recipeRead!!.name)) {
-                    binding.tvR.text = recipeRead?.name
-                }else {
+
+                if(result.translations.isEmpty()) {
                     Toast.makeText(context,"Возможно ключ устарел",Toast.LENGTH_LONG).show()
+
+                }else {
+
+                    Log.i("Trans_RDF", result.toString())
+                    converter.fromBodyResponse(result.translations,recipeRead!!)
+                    Log.i("Trans_RDF", recipeRead.toString())
+
+                    Toast.makeText(context,"Возможно ключ устарел",Toast.LENGTH_LONG).show()
+                    binding.tvR.text = recipeRead?.name
                 }
             //    val json = Json
                 strRecipe = json.encodeToString(recipeRead)

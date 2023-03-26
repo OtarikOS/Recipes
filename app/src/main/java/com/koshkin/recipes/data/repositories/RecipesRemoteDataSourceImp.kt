@@ -132,10 +132,12 @@ class RecipesRemoteDataSourceImp(
                 Log.i("res_RRDS_key2", result?.translations.toString())
 
             } else {
-                Log.i("res_RRDS_else_key", response.errorBody().toString())
+                       //Костыль. Вместо Result<out R>
+                result =Translate()
+                Log.i("res_RRDS_else_key", result.translations.toString())
                 // return@withContext Result.Error(Exception(response.message()))
 
-                result = response.body()
+
             }
             return@withContext result!!
         }
