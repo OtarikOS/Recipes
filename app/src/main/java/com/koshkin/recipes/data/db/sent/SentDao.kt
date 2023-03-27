@@ -14,8 +14,8 @@ interface SentDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun update(list: List<SentIdDb>)
 
-    @Query("DELETE from sentId")
-    suspend fun delete(list: List<SentIdDb>)
+//    @Query("DELETE from sentId")
+//    suspend fun delete(list: List<SentIdDb>)
 
     @Query("SELECT * FROM sentID")
     fun getAllId(): Flow<List<SentIdDb>>

@@ -4,9 +4,11 @@ import android.content.Context
 import com.koshkin.recipes.BuildConfig
 import com.koshkin.recipes.data.api.NetworkModule
 import com.koshkin.recipes.data.db.recipesfragmentdb.ScreenDataBase
+import com.koshkin.recipes.data.db.sent.SentIdDataBase
 import com.koshkin.recipes.data.mappers.KeyMapper
 import com.koshkin.recipes.data.mappers.RecipesApiResponseMapper
 import com.koshkin.recipes.data.mappers.ScreenDbMapper
+import com.koshkin.recipes.data.mappers.sent.SentIdMapper
 import com.koshkin.recipes.data.repositories.LocalDataSource
 import com.koshkin.recipes.data.repositories.LocalDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
@@ -15,12 +17,17 @@ import kotlinx.coroutines.Dispatchers
 
 object ServiceLocator {
     private var screenDataBase: ScreenDataBase? = null
+    private var sentIdDataBase: SentIdDataBase? = null
     private val networkModule by lazy {
         NetworkModule()
     }
 
     private val screenDbMapper by lazy {
         ScreenDbMapper()
+    }
+
+    private val sentIdMapper by lazy {
+        SentIdMapper()
     }
 
     @Volatile
@@ -48,12 +55,21 @@ object ServiceLocator {
 
     private fun createLocalDataSource(context: Context): LocalDataSource {
         val database = screenDataBase ?: createDataBase(context)
+        val databaseSent = sentIdDataBase?: createDataBaseSent(context)
         return LocalDataSourceImp(
             database.recipesDao(),
             Dispatchers.IO,
-            screenDbMapper
+            screenDbMapper,
+            databaseSent.sentDao(),
+            sentIdMapper
         )
     }
+
+    private fun createDataBaseSent(context: Context): SentIdDataBase {
+        val result = SentIdDataBase.getDB(context)
+        sentIdDataBase = result
+        return result
+            }
 
     private fun createDataBase(context: Context): ScreenDataBase {
         val result = ScreenDataBase.getDataBase(context)

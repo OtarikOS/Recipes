@@ -53,7 +53,10 @@ class RecipesFragment : Fragment() {
             ((requireActivity().application) as App).getTranslate,
             ((requireActivity().application) as App).deleteAll,
             ((requireActivity().application) as App).getSavedRecipes,
-            ((requireActivity().application) as App).saveAllRecipes
+            ((requireActivity().application) as App).saveAllRecipes,
+            ((requireActivity().application) as App).saveSent,
+            ((requireActivity().application) as App).getSent,
+            ((requireActivity().application) as App).recipeWithStatusMapper
         )
     }
 
@@ -112,6 +115,7 @@ class RecipesFragment : Fragment() {
             })
         CoroutineScope(Dispatchers.Main).launch {
             val job = launch {
+                Log.i("RF_getFromDb_launch", "start")
                 recipesViewModel.getSavedRecipes()
             }
             job.join()

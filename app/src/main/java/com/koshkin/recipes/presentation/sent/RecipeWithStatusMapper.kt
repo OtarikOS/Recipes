@@ -35,7 +35,7 @@ class RecipeWithStatusMapper {
         return recipesWithStatus
     }
 
-    fun fromRecipeWithStatusToRecipeForFragment(withStatus:RecipesForFragmentWithStatus): RecipesForFragment{
+    fun fromRecipeWithStatusToRecipeForFragment(withStatus: RecipesForFragmentWithStatus): RecipesForFragment{
         return RecipesForFragment(
             withStatus.id, withStatus.name, withStatus.imageUrl
         )

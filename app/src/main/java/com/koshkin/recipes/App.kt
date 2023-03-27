@@ -1,10 +1,10 @@
 package com.koshkin.recipes
 
 import android.app.Application
-import com.koshkin.recipes.data.repositories.RecipesRemoteDataSourceImp
 import com.koshkin.recipes.data.repositories.RecipesRepositoryImpl
 import com.koshkin.recipes.di.ServiceLocator
 import com.koshkin.recipes.domain.usecases.*
+import com.koshkin.recipes.presentation.sent.RecipeWithStatusMapper
 
 class App: Application() {
     private val recipesRepository : RecipesRepositoryImpl
@@ -33,4 +33,13 @@ class App: Application() {
 
     val saveAllRecipes: SaveAllRecipes
     get() = SaveAllRecipes(recipesRepository)
+
+    val saveSent: SaveSent
+    get() = SaveSent(recipesRepository)
+
+    val getSent: GetSent
+    get() = GetSent(recipesRepository)
+
+    val recipeWithStatusMapper: RecipeWithStatusMapper
+    get() = RecipeWithStatusMapper()
 }
