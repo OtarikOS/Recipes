@@ -2,6 +2,8 @@ package com.koshkin.recipes.domain.repositories
 
 import  com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.*
+import com.koshkin.recipes.domain.entity.sent.SentIdDomain
+import kotlinx.coroutines.flow.Flow
 import okhttp3.RequestBody
 
 interface RecipesRepository {
@@ -20,4 +22,9 @@ interface RecipesRepository {
     suspend fun deleteAll()
 
     suspend fun getAll():List<RecipesForFragment>
+
+                                          // SentId
+    suspend fun insertId(id: SentIdDomain)
+
+    suspend fun getSaveId(): Flow<List<SentIdDomain>>
 }

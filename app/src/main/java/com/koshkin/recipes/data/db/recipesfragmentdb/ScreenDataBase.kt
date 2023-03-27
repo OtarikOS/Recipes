@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.koshkin.recipes.data.db.RecipesDao
 import com.koshkin.recipes.data.db.recipesfragmentdb.entity.ScreenDb
 
 @Database(entities = [ScreenDb::class], version = 1)

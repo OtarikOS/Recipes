@@ -17,7 +17,9 @@ class RecipesViewModel(
     private val getTranslate: GetTranslate,
     private val deleteAll: DeleteAll,
     private val getSavedRecipes: GetSavedRecipes,
-    private val savedRecipes: SaveAllRecipes
+    private val savedRecipes: SaveAllRecipes,
+    private val saveSent: SaveSent,
+    private val getSent: GetSent
 ) :ViewModel(){
 
 
@@ -167,7 +169,9 @@ class RecipesViewModel(
         private val getTranslate: GetTranslate,
         private val deleteAll: DeleteAll,
         private val getSavedRecipes: GetSavedRecipes,
-        private val savedRecipes: SaveAllRecipes
+        private val savedRecipes: SaveAllRecipes,
+        private val saveSent: SaveSent,
+        private val getSent: GetSent
     ): ViewModelProvider.NewInstanceFactory(){
 
         @Suppress("UNCHECKED_CAST")
@@ -178,7 +182,8 @@ class RecipesViewModel(
                 postRecipe,
                 getKey,
                 getTranslate,
-                deleteAll, getSavedRecipes, savedRecipes
+                deleteAll, getSavedRecipes, savedRecipes,
+                saveSent, getSent
             ) as T
         }
     }

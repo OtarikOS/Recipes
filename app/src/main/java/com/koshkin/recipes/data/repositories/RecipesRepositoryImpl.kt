@@ -2,7 +2,9 @@ package com.koshkin.recipes.data.repositories
 
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.*
+import com.koshkin.recipes.domain.entity.sent.SentIdDomain
 import com.koshkin.recipes.domain.repositories.RecipesRepository
+import kotlinx.coroutines.flow.Flow
 import okhttp3.RequestBody
 
 class RecipesRepositoryImpl(
@@ -45,6 +47,16 @@ class RecipesRepositoryImpl(
 
     override suspend fun getAll(): List<RecipesForFragment> {
         return localDataSource.getAll()
+    }
+
+                               //SendID
+
+    override suspend fun getSaveId(): Flow<List<SentIdDomain>> {
+        return localDataSource.getSaveId()
+    }
+
+    override suspend fun insertId(id: SentIdDomain) {
+        return localDataSource.insertId(id)
     }
 
 }

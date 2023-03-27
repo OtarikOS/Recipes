@@ -1,4 +1,4 @@
-package com.koshkin.recipes.data.db
+package com.koshkin.recipes.data.db.recipesfragmentdb
 
 import androidx.room.*
 import com.koshkin.recipes.data.db.recipesfragmentdb.entity.ScreenDb
