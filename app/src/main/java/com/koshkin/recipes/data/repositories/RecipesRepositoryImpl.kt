@@ -51,7 +51,7 @@ class RecipesRepositoryImpl(
 
                                //SendID
 
-    override suspend fun getSaveId(): Flow<List<SentIdDomain>> {
+    override suspend fun getSaveId(): List<SentIdDomain> {
         return localDataSource.getSaveId()
     }
 

@@ -18,7 +18,7 @@ interface SentDao {
 //    suspend fun delete(list: List<SentIdDb>)
 
     @Query("SELECT * FROM sentID")
-    fun getAllId(): Flow<List<SentIdDb>>
+    suspend fun getAllId(): List<SentIdDb>
 
 
 }

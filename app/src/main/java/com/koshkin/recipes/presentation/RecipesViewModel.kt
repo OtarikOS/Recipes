@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.*
+import com.koshkin.recipes.domain.entity.sent.SentIdDomain
 import com.koshkin.recipes.domain.usecases.*
 import com.koshkin.recipes.presentation.sent.RecipeWithStatusMapper
 import com.koshkin.recipes.presentation.sent.RecipesForFragmentWithStatus
@@ -25,7 +26,7 @@ class RecipesViewModel(
     private val mapper: RecipeWithStatusMapper
 ) :ViewModel(){
 
-
+var recipeWithStatusFlow:List<SentIdDomain>? = null
     private val _dataLoading = MutableLiveData(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
@@ -57,12 +58,13 @@ class RecipesViewModel(
                 //    _remoteRecipes.clear()
                     _remoteRecipes.addAll(recipesResult.data)
 
-                    val recipeWithStatusFlow = getSent.invoke()
-                    recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
-                        recipes.value = mapper.fromRecipeToRecipeWithStatus(_remoteRecipes,recipesFlow)
+                   val  recipeWithStatusFlow = getSent.invoke()
+//                        //      recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
+                        recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes,recipeWithStatusFlow))
+                    Log.i("RVM_recipes",recipes.value.toString())
                         recipeDb = _remoteRecipes
                         _dataLoading.postValue(false)
-                    }
+            //        }
                     if(_remoteRecipes.size<20)        // походу проверка на конец списка не ныжна TODO проверить
                         _allowRequest.postValue(false)
                 }
@@ -74,6 +76,10 @@ class RecipesViewModel(
                 }
             }
         }
+ //       val recipeWithStatusFlow = getSent.invoke()
+        //      recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
+        //  recipes.value
+      //  val s   = mapper.fromRecipeToRecipeWithStatus(_remoteRecipes,recipeWithStatusFlow!!)
      //   return allowRequest
     }
 
@@ -149,15 +155,19 @@ class RecipesViewModel(
         _remoteRecipes = def.await() as ArrayList<RecipesForFragment>
         Log.i("RVM_getSaved",_remoteRecipes.toString())
 
+        recipeDb = _remoteRecipes
+
         val recipeWithStatusFlow = getSent.invoke()
         Log.i("RVM_flow","start")
-        recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
-            recipes.value = mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipesFlow)
+    //    recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
+            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow))
             //   recipes.postValue(_remoteRecipes)
             Log.i("RVM_flow","end")
-        }
+//            Log.i("RVM_flow", recipes.value!![0].id.toString())
+            _dataLoading.postValue(false)
+     //   }
         Log.i("RVM_flow2","end")
-        recipeDb = _remoteRecipes
+
         if (recipeDb.size>0){
             Log.i("RVM_getSaved",recipeDb.size.toString())
             _dataLoading.postValue(false)

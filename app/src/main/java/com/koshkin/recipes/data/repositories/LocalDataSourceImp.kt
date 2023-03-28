@@ -33,15 +33,12 @@ class LocalDataSourceImp(
 
     //SentDb
     override suspend fun insertId(id: SentIdDomain) = withContext(dispatcher) {
-        sentDao.insert(sentIdMapper.toSentDb(id))
+   //     sentDao.insert(sentIdMapper.toSentDb(id))
     }
 
-    override suspend fun getSaveId(): Flow<List<SentIdDomain>> {
+    override suspend fun getSaveId(): List<SentIdDomain> {
         val savedSendId = sentDao.getAllId()
-        return savedSendId.map { list ->
-            list.map { element ->
-                sentIdMapper.toSentDomain(element)
-            }
+
+        return sentIdMapper.toSentDomain(savedSendId)
         }
     }
-}

@@ -26,5 +26,5 @@ interface RecipesRepository {
                                           // SentId
     suspend fun insertId(id: SentIdDomain)
 
-    suspend fun getSaveId(): Flow<List<SentIdDomain>>
+    suspend fun getSaveId(): List<SentIdDomain>
 }

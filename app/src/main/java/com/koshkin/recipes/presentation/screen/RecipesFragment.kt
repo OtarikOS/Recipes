@@ -144,6 +144,7 @@ class RecipesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recipesViewModel.recipes.observe(viewLifecycleOwner, {
+         //   Log.i("RVM_recipes",recipesViewModel.recipes)
             recipesAdapter.submitUpdate(it)
         })
 

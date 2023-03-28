@@ -67,7 +67,7 @@ class RecipesAdapter(
         }
 
         holder.ivRecipeCover.setOnClickListener{
-            val json=Json
+       //     val json=Json
           //  if(recipes[position].nutrition?.calories ==null){
                 listener.moreInfo(recipes[position].id.toString())
 //            }else {
