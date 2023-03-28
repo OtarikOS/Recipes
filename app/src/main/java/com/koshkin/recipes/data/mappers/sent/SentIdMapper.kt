@@ -1,13 +1,14 @@
 package com.koshkin.recipes.data.mappers.sent
 
 import com.koshkin.recipes.data.db.sent.SentIdDb
+import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.entity.sent.SentIdDomain
 
 class SentIdMapper {
-    fun toSentDb(input: List<SentIdDomain>): List<SentIdDb>{
+    fun toSentDbList(input: List<SentIdDomain>): List<SentIdDb>{
         return input.map {
             SentIdDb(
-                it.id
+                it.id!!
             )
         }
     }
@@ -19,4 +20,8 @@ class SentIdMapper {
             )
         }
     }
+
+    fun  toSentDb(input:SentIdDomain):SentIdDb{return SentIdDb(id = input.id!!)
+    }
+
 }

@@ -73,6 +73,8 @@ class RecipesFragment : Fragment() {
         }
     }
 
+
+
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

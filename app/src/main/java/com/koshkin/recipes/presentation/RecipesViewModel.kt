@@ -26,7 +26,7 @@ class RecipesViewModel(
     private val mapper: RecipeWithStatusMapper
 ) :ViewModel(){
 
-var recipeWithStatusFlow:List<SentIdDomain>? = null
+    private var recipeWithStatusFlow:List<SentIdDomain>? = null
     private val _dataLoading = MutableLiveData(false)
     val dataLoading: LiveData<Boolean> = _dataLoading
 
@@ -58,9 +58,11 @@ var recipeWithStatusFlow:List<SentIdDomain>? = null
                 //    _remoteRecipes.clear()
                     _remoteRecipes.addAll(recipesResult.data)
 
-                   val  recipeWithStatusFlow = getSent.invoke()
+                     recipeWithStatusFlow = getSent.invoke()
 //                        //      recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
-                        recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes,recipeWithStatusFlow))
+                        recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes,
+                            recipeWithStatusFlow!!
+                        ))
                     Log.i("RVM_recipes",recipes.value.toString())
                         recipeDb = _remoteRecipes
                         _dataLoading.postValue(false)
@@ -157,10 +159,10 @@ var recipeWithStatusFlow:List<SentIdDomain>? = null
 
         recipeDb = _remoteRecipes
 
-        val recipeWithStatusFlow = getSent.invoke()
+         recipeWithStatusFlow = getSent.invoke()
         Log.i("RVM_flow","start")
     //    recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
-            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow))
+            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!))
             //   recipes.postValue(_remoteRecipes)
             Log.i("RVM_flow","end")
 //            Log.i("RVM_flow", recipes.value!![0].id.toString())
@@ -182,6 +184,21 @@ var recipeWithStatusFlow:List<SentIdDomain>? = null
             savedRecipes.invoke(recipes)
         }
         job.join()
+    }
+
+    suspend fun insertSentId(id:Results) {
+        viewModelScope.launch {
+
+            val job = launch {saveSent.invoke(mapper.resultsToSendIdDomain(id))}
+            job.join()
+
+
+        val job2 = launch { recipeWithStatusFlow = getSent.invoke() }
+            job2.join()
+            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!))
+
+        }
+
     }
 
 

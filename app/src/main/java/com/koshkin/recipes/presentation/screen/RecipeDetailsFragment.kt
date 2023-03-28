@@ -224,7 +224,7 @@ class RecipeDetailsFragment(/*private val postRecipe: PostRecipe*/) : Fragment()
                     converter.fromBodyResponse(result.translations,recipeRead!!)
                     Log.i("Trans_RDF", recipeRead.toString())
 
-                    Toast.makeText(context,"Возможно ключ устарел",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"Готово",Toast.LENGTH_SHORT).show()
                     binding.tvR.text = recipeRead?.name
                 }
             //    val json = Json

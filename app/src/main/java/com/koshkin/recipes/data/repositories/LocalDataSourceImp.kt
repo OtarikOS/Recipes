@@ -33,7 +33,7 @@ class LocalDataSourceImp(
 
     //SentDb
     override suspend fun insertId(id: SentIdDomain) = withContext(dispatcher) {
-   //     sentDao.insert(sentIdMapper.toSentDb(id))
+        sentDao.insert(sentIdMapper.toSentDb(id))
     }
 
     override suspend fun getSaveId(): List<SentIdDomain> {

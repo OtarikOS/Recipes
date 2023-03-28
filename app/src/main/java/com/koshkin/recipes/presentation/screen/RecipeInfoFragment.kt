@@ -135,8 +135,11 @@ class RecipeInfoFragment : Fragment() {
                     message = R.string.toast_200
                 if (result == 500)
                     message = R.string.toast_500
-                if (result == 229)
+                if (result == 229) {
+                    recipesViewModel.insertSentId(recipeRead!!)
+
                     message = R.string.toast_gut
+                }
                 if (result == 470)
                     message = R.string.toast_nodb
                 if (result == 477)

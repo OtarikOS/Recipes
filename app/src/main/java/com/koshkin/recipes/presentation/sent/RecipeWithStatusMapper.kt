@@ -1,6 +1,8 @@
 package com.koshkin.recipes.presentation.sent
 
+import com.koshkin.recipes.data.db.sent.SentIdDb
 import com.koshkin.recipes.domain.entity.RecipesForFragment
+import com.koshkin.recipes.domain.entity.Results
 import com.koshkin.recipes.domain.entity.sent.SentIdDomain
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -59,5 +61,11 @@ class RecipeWithStatusMapper {
         return RecipesForFragment(
             withStatus.id, withStatus.name, withStatus.imageUrl
         )
+    }
+
+    fun fromWithStatusToSentIdDomain(recipe: RecipesForFragmentWithStatus): SentIdDomain{
+        return SentIdDomain(id = recipe.id)
+    }
+    fun resultsToSendIdDomain(recipe: Results): SentIdDomain{return SentIdDomain(id = recipe.id)
     }
 }
