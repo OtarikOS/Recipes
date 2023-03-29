@@ -18,11 +18,11 @@ import kotlinx.serialization.json.Json
 class RecipesAdapter(
     private val context: Context,
     private val listener: ActionClickListener
-): RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
 
 
-
-    private val recipes: ArrayList<RecipesForFragmentWithStatus> = arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
+    private val recipes: ArrayList<RecipesForFragmentWithStatus> =
+        arrayListOf() //TODO сделать "энтити" для презентэйшн и переписать recipes
 
 
     override fun getItemCount(): Int {
@@ -40,45 +40,56 @@ class RecipesAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.i("R_ADAP",position.toString())
-     //   recipes.addAll(recipes)
-        if (position ==recipes.size-10)
-            listener.addRecipes(31,20,null,null)
+        Log.i("R_ADAP", position.toString())
+        //   recipes.addAll(recipes)
+        if (position == recipes.size - 10)
+            listener.addRecipes(31, 20, null, null)
         recipes[position].also { recipe ->
             recipe.imageUrl?.let { imageUrl ->
                 Glide.with(context)
                     .load(imageUrl)
                     .into(holder.ivRecipeCover)
                 holder.tvRecipeID.text = recipe.id.toString()
-                holder.tvRecipeName.text= recipe.name
-                if (recipe.status == SentRecipeStatus.SENT){
-                holder.ivSent.visibility = View.VISIBLE
-                }
-            } ?: kotlin.run {
+                holder.tvRecipeName.text = recipe.name
+//                if (recipe.status == SentRecipeStatus.SENT) {
+//                    holder.ivSent.visibility = View.VISIBLE
+//                }
+            }
+                ?: kotlin.run {
                 Glide.with(context)
                     .load(R.drawable.ic_launcher_background)
                     .into(holder.ivRecipeCover)
                 holder.tvRecipeID.text = recipe.id.toString()
-                holder.tvRecipeName.text =recipe.name
-                if (recipe.status == SentRecipeStatus.SENT){
+                holder.tvRecipeName.text = recipe.name
+                if (recipe.status == SentRecipeStatus.SENT) {
                     holder.ivSent.visibility = View.VISIBLE
                 }
             }
-        }
+      //  }
 
-        holder.ivRecipeCover.setOnClickListener{
-       //     val json=Json
-          //  if(recipes[position].nutrition?.calories ==null){
-                listener.moreInfo(recipes[position].id.toString())
+        holder.ivRecipeCover.setOnClickListener {
+            //     val json=Json
+            //  if(recipes[position].nutrition?.calories ==null){
+            recipes[position].status = SentRecipeStatus.SENT
+            listener.moreInfo(recipes[position].id.toString())
 //            }else {
 //                val str = json.encodeToString(recipes[position])
 //                Log.i("RADAP", str)
 //                listener.moreInfo(str)
-//            }
+            }
+        }
+
+        when(recipes[position].status){
+            SentRecipeStatus.SENT ->{
+                holder.ivSent.visibility =View.VISIBLE
+            }
+            SentRecipeStatus.NOTSENT ->{
+                holder.ivSent.visibility = View.GONE
+            }
         }
     }
 
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvRecipeName: TextView = view.findViewById(R.id.tvRecipeName)
         val tvRecipeID: TextView = view.findViewById(R.id.tvRecipeID)
         val ivRecipeCover: ImageView = view.findViewById(R.id.ivRecipeCover)
@@ -118,9 +129,9 @@ class RecipesAdapter(
     }
 
     interface ActionClickListener {
-         fun moreInfo(str:String)
+        fun moreInfo(str: String)
 
-        fun addRecipes(from :Int,size : Int,tag: String?,ingredient: String?)
+        fun addRecipes(from: Int, size: Int, tag: String?, ingredient: String?)
     }
 
 }

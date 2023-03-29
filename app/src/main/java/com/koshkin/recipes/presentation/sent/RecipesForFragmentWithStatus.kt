@@ -6,5 +6,5 @@ data class RecipesForFragmentWithStatus(
     val id: Int?,
     val name: String?,
     val imageUrl:String?,
-    val status: SentRecipeStatus
+    var status: SentRecipeStatus
 )

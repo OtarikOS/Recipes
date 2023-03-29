@@ -1,7 +1,10 @@
 package com.koshkin.recipes.presentation
 
+import android.app.Application
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
+import com.koshkin.recipes.App
 import kotlinx.coroutines.launch
 import com.koshkin.recipes.domain.common.Result
 import com.koshkin.recipes.domain.entity.*
@@ -11,6 +14,7 @@ import com.koshkin.recipes.presentation.sent.RecipeWithStatusMapper
 import com.koshkin.recipes.presentation.sent.RecipesForFragmentWithStatus
 import kotlinx.coroutines.async
 import okhttp3.RequestBody
+import java.io.File
 
 class RecipesViewModel(
     private val getRecipeInfo: GetRecipeInfo,
@@ -45,6 +49,7 @@ class RecipesViewModel(
     val error: LiveData<String> = _error
 
     private var _remoteRecipes = arrayListOf<RecipesForFragment>()
+    @Volatile
     var recipeDb = _remoteRecipes
 
      var remoteRecipeInfo:Results? =null
@@ -149,7 +154,9 @@ class RecipesViewModel(
         job.join()
     }
 
-    suspend fun getSavedRecipes(): List<RecipesForFragment>{
+    suspend fun getSavedRecipes(){
+   // : List<RecipesForFragment>{
+        val job = viewModelScope.launch {
         val def = viewModelScope.async{
             _dataLoading.postValue(true)
             getSavedRecipes.invoke()
@@ -174,8 +181,10 @@ class RecipesViewModel(
             Log.i("RVM_getSaved",recipeDb.size.toString())
             _dataLoading.postValue(false)
         }
+        }
+        job.join()
     //    _dataLoading.postValue(false)
-        return recipeDb
+     //   return recipeDb
             //recipeDb
     }
 
@@ -187,18 +196,28 @@ class RecipesViewModel(
     }
 
     suspend fun insertSentId(id:Results) {
-        viewModelScope.launch {
+        val job = viewModelScope.launch {
 
-            val job = launch {saveSent.invoke(mapper.resultsToSendIdDomain(id))}
+            saveSent.invoke(mapper.resultsToSendIdDomain(id))
+        }
             job.join()
 
 
-        val job2 = launch { recipeWithStatusFlow = getSent.invoke() }
-            job2.join()
-            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!))
+//        val job2 = launch { recipeWithStatusFlow = getSent.invoke() }
+//            job2.join()
+//            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!))
 
+      //  }
+
+    }
+
+    fun databaseFileExists(context: Context): Boolean {
+    //    val context:Context =
+        return try {
+            File(context.getDatabasePath("ScreenDataBase").absolutePath).exists()
+        }catch (e: Exception){
+            false
         }
-
     }
 
 
