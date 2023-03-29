@@ -49,7 +49,7 @@ class RecipesViewModel(
     val error: LiveData<String> = _error
 
     private var _remoteRecipes = arrayListOf<RecipesForFragment>()
-    @Volatile
+   // @Volatile
     var recipeDb = _remoteRecipes
 
      var remoteRecipeInfo:Results? =null
@@ -156,22 +156,29 @@ class RecipesViewModel(
 
     suspend fun getSavedRecipes(){
    // : List<RecipesForFragment>{
-        val job = viewModelScope.launch {
+   //     val job = viewModelScope.launch {
         val def = viewModelScope.async{
             _dataLoading.postValue(true)
+            val job2 =launch {
+                recipeWithStatusFlow = getSent.invoke()
+            }
+            job2.join()
             getSavedRecipes.invoke()
+
+
         }
         _remoteRecipes = def.await() as ArrayList<RecipesForFragment>
         Log.i("RVM_getSaved",_remoteRecipes.toString())
 
         recipeDb = _remoteRecipes
 
-         recipeWithStatusFlow = getSent.invoke()
+
+
         Log.i("RVM_flow","start")
     //    recipeWithStatusFlow.collect { recipesFlow ->         //TODO сделать через мапер энтити презентейшн
-            recipes.postValue(mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!))
+            recipes.value =mapper.fromRecipeToRecipeWithStatus(_remoteRecipes, recipeWithStatusFlow!!)
             //   recipes.postValue(_remoteRecipes)
-            Log.i("RVM_flow","end")
+            Log.i("RVM_flow","recipes ${recipes.value!!.size} _remote ${_remoteRecipes.size} withs ${recipeWithStatusFlow!!.size}")
 //            Log.i("RVM_flow", recipes.value!![0].id.toString())
             _dataLoading.postValue(false)
      //   }
@@ -181,8 +188,8 @@ class RecipesViewModel(
             Log.i("RVM_getSaved",recipeDb.size.toString())
             _dataLoading.postValue(false)
         }
-        }
-        job.join()
+//        }
+//        job.join()
     //    _dataLoading.postValue(false)
      //   return recipeDb
             //recipeDb

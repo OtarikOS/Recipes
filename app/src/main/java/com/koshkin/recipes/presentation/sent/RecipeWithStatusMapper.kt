@@ -30,8 +30,8 @@ class RecipeWithStatusMapper {
                 )
             } else {
 
-                for (element in sentRecipes) {
-                    if (recipe.id == element.id) {
+                for (i:Int in 0 until sentRecipes.size) {
+                    if (recipe.id == sentRecipes[i].id) {
                         recipesWithStatus.add(
                             RecipesForFragmentWithStatus(
                                 recipe.id,
@@ -40,7 +40,8 @@ class RecipeWithStatusMapper {
                                 SentRecipeStatus.SENT
                             )
                         )
-                    } else {
+                        break
+                    } else if(i ==sentRecipes.size-1){
                         recipesWithStatus.add(
                             RecipesForFragmentWithStatus(
                                 recipe.id,
@@ -49,6 +50,7 @@ class RecipeWithStatusMapper {
                                 SentRecipeStatus.NOTSENT
                             )
                         )
+                       // continue
                     }
                 }
             }

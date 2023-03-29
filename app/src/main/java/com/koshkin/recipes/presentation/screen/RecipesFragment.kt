@@ -118,15 +118,18 @@ class RecipesFragment : Fragment() {
 
             })
         CoroutineScope(Dispatchers.Main).launch {
-            val job = launch {
-                Log.i("RF_getFromDb_launch", "start")
-                recipesViewModel.getSavedRecipes()
-            }
-            job.join()
-            Log.i("RF_getFromDb", recipesViewModel.recipeDb.toString())
+            if(b) {
+                val job = launch {
+                    Log.i("RF_getFromDb_launch", "start")
+                    recipesViewModel.getSavedRecipes()
+                }
+                job.join()
+                Log.i("RF_getFromDb", recipesViewModel.recipeDb.toString())
+            }else
+                recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
 
             if (recipesViewModel.recipeDb.isEmpty()) {
-                recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)
+             //   recipesViewModel.getRecipes(statePosition, sizeRequest, null, null)   // TODO изменить часть
             }else{
                 statePosition = recipesViewModel.recipeDb.size
             }

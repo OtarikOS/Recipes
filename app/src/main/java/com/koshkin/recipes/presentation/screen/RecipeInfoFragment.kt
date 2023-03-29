@@ -93,6 +93,8 @@ class RecipeInfoFragment : Fragment() {
 //                                       // Отправка
                 binding.tvButton.setOnClickListener{
             var result:Int? = null
+
+                    binding.progressBar.visibility = View.VISIBLE
 //            val jsonObject = JSONObject()
 //            jsonObject.put("id",recipeRead!!.id)
 //
@@ -127,6 +129,7 @@ class RecipeInfoFragment : Fragment() {
                     recipesViewModel.postRecipe(requestBody)
                 }
                 result = def.await()
+                binding.progressBar.visibility = View.GONE
 
 
                 Log.i("As_RDF", result.toString())
