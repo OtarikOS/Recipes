@@ -26,5 +26,5 @@
             android:layout_weight="1"
             android:text="TextView"
             android:inputType="textMultiLine"
-            android:textSize="24sp"/>
+            android:textSize="18sp"/>
     </LinearLayout>

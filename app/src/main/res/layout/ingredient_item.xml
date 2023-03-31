@@ -9,5 +9,5 @@
     android:text="INGR"
     android:inputType="textMultiLine"
     android:textColor="#00FF00"
-    android:textSize="24sp">
+    android:textSize="18sp">
 </EditText>

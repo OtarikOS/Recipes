@@ -23,10 +23,10 @@ import com.koshkin.recipes.R
 
     override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.tvPosition.text =  (position+1).toString()
-        holder.tvInfoData.text = data[position]
+        holder.tvInfoData.text = data[holder.adapterPosition]
         holder.tvInfoData.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-            data[position] = holder.tvInfoData.text.toString()
+            data[holder.adapterPosition] = holder.tvInfoData.text.toString()
 
             }
 
