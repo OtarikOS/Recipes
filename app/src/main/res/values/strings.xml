@@ -10,4 +10,5 @@
     <string name="toast_nodb">База не доступна</string>
     <string name="toast_500">Ошибка сервера</string>
     <string name="toast_200">Что-то не так </string>
+    <string name="search">Поиск</string>
 </resources>

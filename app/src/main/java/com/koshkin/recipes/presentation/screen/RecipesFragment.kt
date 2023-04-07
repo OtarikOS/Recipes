@@ -78,6 +78,8 @@ class RecipesFragment : Fragment() {
     @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+
         val b = recipesViewModel.databaseFileExists(requireContext())
         Log.i("RF_DD",b.toString())
         recipesAdapter =
